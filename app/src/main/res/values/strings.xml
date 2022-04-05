@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BookStylist</string>
+    <string name="search_shop">Search Shop</string>
+    <string-array name="all_shop">
+        <item>Tân Baber</item>
+        <item>Toàn Barber</item>
+        <item>Tiến Baber</item>
+        <item>Tuấn Baber</item>
+    </string-array>
 </resources>
