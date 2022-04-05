@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/ic_baseline_security_24.xml" value="0.1" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/input_bg.xml" value="0.1" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/input_password_reset.xml" value="0.1" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_forgot_password.xml" value="0.33" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_home.xml" value="0.12222222222222222" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_register.xml" value="0.12222222222222222" />
         <entry key="..\:/Users/tanir/Documents/LMS-UEH/Android/BookStylist/app/src/main/res/font/aldrich.xml" value="0.18796296296296297" />
         <entry key="..\:/Users/tanir/Documents/LMS-UEH/Android/BookStylist/app/src/main/res/layout/activity_home.xml" value="0.20643363728470113" />
         <entry key="..\:/Users/tanir/Documents/LMS-UEH/Android/BookStylist/app/src/main/res/layout/activity_main.xml" value="0.1" />

@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     ProgressDialog progressDialog;
+    TextView forgotPassword;
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.inputPassword);
 
         btnLogin = findViewById(R.id.btnLogin);
+
+        forgotPassword = findViewById(R.id.forgotPassword);
 
         progressDialog = new ProgressDialog(this);
 
@@ -62,6 +65,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 perfomLogin();
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,ForgotPasswordActivity.class));
             }
         });
     }
