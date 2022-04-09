@@ -1,13 +1,15 @@
 package com.app.bookstylist;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,6 +19,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     EditText inputEmail;
     Button btnReset;
     FirebaseAuth mAuth;
+
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +29,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.inputPasswordReset);
         btnReset = findViewById(R.id.btnReset);
         mAuth =FirebaseAuth.getInstance();
-
+        progressDialog = new ProgressDialog(this);
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,6 +43,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
                                 Toast.makeText(ForgotPasswordActivity.this, "Please check your Email", Toast.LENGTH_SHORT).show();
+                                progressDialog.show();
+                                Intent intent = new Intent(ForgotPasswordActivity.this,MainActivity.class);
+                                startActivity(intent);
                             }
                             else{
                                 Toast.makeText(ForgotPasswordActivity.this, "Email not send!", Toast.LENGTH_SHORT).show();
@@ -50,3 +57,4 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         });
     }
 }
+
