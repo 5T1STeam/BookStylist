@@ -99,7 +99,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogin"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginTop="12dp"
                 android:backgroundTint="@color/main"
                 app:cornerRadius="@dimen/browser_actions_context_menu_max_width"
