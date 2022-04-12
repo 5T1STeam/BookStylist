@@ -3,58 +3,85 @@ package com.app.bookstylist;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.app.bookstylist.databinding.ActivityForgotPasswordBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-    EditText inputEmail;
-    Button btnReset;
-    FirebaseAuth mAuth;
+    private ActivityForgotPasswordBinding binding;
+    private FirebaseAuth firebaseAuth;
 
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot_password);
 
-        inputEmail = findViewById(R.id.inputPasswordReset);
-        btnReset = findViewById(R.id.btnReset);
-        mAuth =FirebaseAuth.getInstance();
+        binding = ActivityForgotPasswordBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
         progressDialog = new ProgressDialog(this);
-        btnReset.setOnClickListener(new View.OnClickListener() {
+        progressDialog.setTitle("Please Wait");
+        progressDialog.setCanceledOnTouchOutside(false);
+
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email= inputEmail.getText().toString();
-                if(email.isEmpty()){
-                    Toast.makeText(ForgotPasswordActivity.this, "Please enter your Email", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(ForgotPasswordActivity.this, "Please check your Email", Toast.LENGTH_SHORT).show();
-                                progressDialog.show();
-                                Intent intent = new Intent(ForgotPasswordActivity.this,MainActivity.class);
-                                startActivity(intent);
-                            }
-                            else{
-                                Toast.makeText(ForgotPasswordActivity.this, "Email not send!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
+                startActivity(new Intent(ForgotPasswordActivity.this,LoginActivity.class));
+
             }
         });
+
+        binding.btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validateData();
+            }
+        });
+
+
+    }
+    private String email = "";
+    private void validateData() {
+        email =binding.inputEmail.getText().toString().trim();
+        if(email.isEmpty()){
+            Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show();
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            Toast.makeText(this, "Vui long nhap dung dinh dang gmail", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            recoverPassword();
+        }
+    }
+
+    private void recoverPassword() {
+        progressDialog.setMessage("Khoi phuc password tai "+email);
+        progressDialog.show();
+
+        firebaseAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                progressDialog.dismiss();
+                Toast.makeText(ForgotPasswordActivity.this, "Sucess,Check your email", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(ForgotPasswordActivity.this, "Failed"+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
 

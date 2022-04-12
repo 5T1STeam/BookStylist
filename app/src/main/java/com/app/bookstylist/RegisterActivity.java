@@ -3,112 +3,139 @@ package com.app.bookstylist;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.app.bookstylist.databinding.ActivityRegisterBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
-    TextView alreadyHaveAccount;
-    EditText inputEmail, inputPassword, inputRepassword;
-    Button btnRegister;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    ProgressDialog progressDialog;
+    private ActivityRegisterBinding binding;
+    private FirebaseAuth firebaseAuth;
 
-    FirebaseAuth mAuth;
-    FirebaseUser mUser;
-
-
-
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        //Chinh flex khoang trong tren cung
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        alreadyHaveAccount = findViewById(R.id.alreadyHaveAccount);
-        inputEmail = findViewById(R.id.inputEmail);
-        inputPassword = findViewById(R.id.inputPassword);
-        inputRepassword = findViewById(R.id.inputRepassword);
-        btnRegister = findViewById(R.id.btnRegister);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setCanceledOnTouchOutside(false);
 
-        mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
-
-
-
-        alreadyHaveAccount.setOnClickListener(new View.OnClickListener() {
+        binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RegisterActivity.this,MainActivity.class));
+                validateData();
             }
         });
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PerforAuth();
+                onBackPressed();
             }
         });
+
+
+
     }
+    String name = "", email = "", password = "";
+    private void validateData() {
 
-    private void PerforAuth() {
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-        String repassword = inputRepassword.getText().toString();
+        name = binding.inputName.getText().toString().trim();
+        email = binding.inputEmail.getText().toString().trim();
+        password = binding.inputPassword.getText().toString().trim();
+        String cPassword = binding.inputRepassword.getText().toString().trim();
 
-        if(!email.matches(emailPattern)){
-            inputEmail.setError("Enter correct Email");
-            inputEmail.requestFocus();
+        if(TextUtils.isEmpty(name)){
+            Toast.makeText(this, "Vui long dien ten cua ban", Toast.LENGTH_SHORT).show();
         }
-        else if(password.isEmpty() || password.length()<6){
-            inputEmail.setError("Enter password and at least 6 ");
+        else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            Toast.makeText(this, "Vui long dien dung dinh dang email", Toast.LENGTH_SHORT).show();
         }
-        else if(!password.equals(repassword)){
-            inputRepassword.setError("Password not match, Please enter again");
+        else if(TextUtils.isEmpty(password)){
+            Toast.makeText(this, "Vui long dien password", Toast.LENGTH_SHORT).show();
+        }
+        else if(TextUtils.isEmpty(cPassword)){
+            Toast.makeText(this, "Vui long dien lai password", Toast.LENGTH_SHORT).show();
+        }
+        else if(!password.equals(cPassword)){
+            Toast.makeText(this, "Password khong trung nhau", Toast.LENGTH_SHORT).show();
         }
         else{
-            progressDialog.setMessage("Please Wait Registration..");
-            progressDialog.setTitle("Registration");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
-
-            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        progressDialog.dismiss();
-                        sendUserToNextActivity();
-                        Toast.makeText(RegisterActivity.this, "Registation sucessful", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
+            createUserAccount();
         }
-
     }
 
-    private void sendUserToNextActivity() {
-        Intent intent = new Intent(RegisterActivity.this,HomeActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+    private void createUserAccount() {
+        progressDialog.setMessage("Dang tao tai khoan...");
+        progressDialog.show();
+
+        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                progressDialog.dismiss();
+                updateUserInfo();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(RegisterActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateUserInfo() {
+        progressDialog.setMessage("Saving user info");
+
+        long timestamp = System.currentTimeMillis();
+
+        //get current user id
+        String uid = firebaseAuth.getUid();
+
+        //set up data add in db
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("uid",uid);
+        hashMap.put("email",email);
+        hashMap.put("password",password);
+        hashMap.put("profileImage","");
+        hashMap.put("userType","user");
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(uid).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                progressDialog.dismiss();
+                Toast.makeText(RegisterActivity.this, "Add thanh cong", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(RegisterActivity.this,DashboardUserActivity.class));
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(RegisterActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
