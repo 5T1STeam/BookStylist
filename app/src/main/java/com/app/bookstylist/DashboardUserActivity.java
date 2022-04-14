@@ -32,6 +32,12 @@ public class DashboardUserActivity extends AppCompatActivity {
                 checkUser();
             }
         });
+        binding.btnBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DashboardUserActivity.this, BookActivity.class));
+            }
+        });
 
     }
 
