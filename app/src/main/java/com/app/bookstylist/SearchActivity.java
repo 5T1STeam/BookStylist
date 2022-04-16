@@ -5,18 +5,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.SearchView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SearchActivity extends AppCompatActivity {
 
-    ListView search_shop;
+    RecyclerView search_shop;
     ArrayAdapter<String> adapter;
 
     @Override
@@ -24,19 +23,19 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seach);
 
-        search_shop = (ListView) findViewById(R.id.search_shop);
+        search_shop = (RecyclerView) findViewById(R.id.search_shop);
 
         ArrayList<String> arrayShop = new ArrayList<>();
         // Sửa lại lấy shop thêm vào array ở đây
-        arrayShop.addAll(Arrays.asList(getResources().getStringArray(R.array.all_shop)));
+//        arrayShop.addAll(Arrays.asList(getResources().getStringArray(R.array.all_shop)));
 
-        adapter = new ArrayAdapter<String>(
-                SearchActivity.this,
-                android.R.layout.simple_list_item_1,
-                arrayShop
-        );
-
-        search_shop.setAdapter(adapter);
+//        adapter = new ArrayAdapter<String>(
+//                SearchActivity.this,
+//                android.R.layout.simple_list_item_1,
+//                arrayShop
+//        );
+//
+//        search_shop.setAdapter(adapter);
 
     }
 

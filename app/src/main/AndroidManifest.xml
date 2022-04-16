@@ -33,6 +33,8 @@
         <activity
             android:name=".BookActivity"
             android:exported="false"/>
+        <activity android:name=".SearchActivity"
+            android:exported="false"/>
         <activity
             android:name=".SplashActivity"
             android:exported="true">

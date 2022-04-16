@@ -1,6 +1,8 @@
 package com.app.bookstylist;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
@@ -34,6 +36,13 @@ public class BookActivity extends AppCompatActivity {
         Toolbar toolbar =findViewById(R.id.topAppBar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.icon_x);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Chuyener về shop
+                startActivity(new Intent(BookActivity.this, DashboardUserActivity.class));
+            }
+        });
         frameLayout = (FrameLayout) findViewById(R.id.frame_book);
         fragment = new BookServiceFrag();
         fragmentManager = getSupportFragmentManager();

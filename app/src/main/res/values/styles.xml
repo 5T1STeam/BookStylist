@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="radi">
+        <item name="cornerSize">10dp
+        </item>
+    </style>
+    <style name="cir">
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/browser_actions_bg_grey</item>
+        <item name="colorControlActivated">@color/main</item>
+    </style>
+</resources>
