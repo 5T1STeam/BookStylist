@@ -53,7 +53,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
         holder.ratingBar.setRating(shopModal.getRating());
         holder.ratenum.setText(String.valueOf(shopModal.getRating()));
         holder.address.setText(shopModal.getAddress());
-        holder.comment.setText("12 Đánh giá");
+        holder.comment.setText(shopModal.getComment()+" Đánh giá");
         holder.imgShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

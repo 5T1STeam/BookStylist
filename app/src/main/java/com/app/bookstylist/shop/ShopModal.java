@@ -5,6 +5,7 @@ public class ShopModal {
     private Integer id;
     private String name, address, email, image, phone, service, desc;
     private Float rating;
+    private Integer comment;
 
     public ShopModal(){
 
@@ -80,5 +81,13 @@ public class ShopModal {
 
     public void setRating(Float rating) {
         this.rating = rating;
+    }
+
+    public Integer getComment() {
+        return comment;
+    }
+
+    public void setComment(Integer comment) {
+        this.comment = comment;
     }
 }

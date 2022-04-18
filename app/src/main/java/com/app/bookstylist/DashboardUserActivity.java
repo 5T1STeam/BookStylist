@@ -16,8 +16,8 @@ import com.app.bookstylist.home.Cate;
 import com.app.bookstylist.home.CateAdapter;
 import com.app.bookstylist.home.Service;
 import com.app.bookstylist.home.ServiceAdapter;
-import com.app.bookstylist.home.Shop;
 import com.app.bookstylist.home.ShopAdapter;
+import com.app.bookstylist.shop.ShopModal;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +32,7 @@ public class DashboardUserActivity extends AppCompatActivity {
     private ActivityDashboardUserBinding binding;
     private RecyclerView rcvShop;
     private ShopAdapter mShopAdapter;
-    private List<Shop> mListShop;
+    private List<ShopModal> mListShop;
 
     private CateAdapter mCateAdapter;
     private RecyclerView rcvCate;
@@ -102,14 +102,14 @@ public class DashboardUserActivity extends AppCompatActivity {
 
     private void getShop(){
         FirebaseDatabase database =FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("list_shop");
+        DatabaseReference myRef = database.getReference("Shop");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mListShop.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Shop shop = dataSnapshot.getValue(Shop.class);
+                    ShopModal shop = dataSnapshot.getValue(ShopModal.class);
                     mListShop.add(shop);
 
                 }
