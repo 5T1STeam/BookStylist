@@ -1,64 +1,89 @@
 package com.app.bookstylist;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.bookstylist.shop.ShopAdapter;
+import com.app.bookstylist.shop.ShopModal;
+import com.google.android.flexbox.AlignItems;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    RecyclerView search_shop;
-    ArrayAdapter<String> adapter;
+    private RecyclerView searchShop;
+    private ShopAdapter shopAdapter;
+    private List<ShopModal> shopModals;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seach);
 
-        search_shop = (RecyclerView) findViewById(R.id.search_shop);
+        searchShop = findViewById(R.id.search_shop);
+        FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(this);
+        flexboxLayoutManager.setAlignItems(AlignItems.CENTER);
 
-        ArrayList<String> arrayShop = new ArrayList<>();
-        // Sửa lại lấy shop thêm vào array ở đây
-//        arrayShop.addAll(Arrays.asList(getResources().getStringArray(R.array.all_shop)));
+        searchShop.setLayoutManager(flexboxLayoutManager);
+        shopModals = new ArrayList<>();
+        shopAdapter = new ShopAdapter(shopModals, getApplicationContext());
+        searchView  = findViewById(R.id.search_view);
 
-//        adapter = new ArrayAdapter<String>(
-//                SearchActivity.this,
-//                android.R.layout.simple_list_item_1,
-//                arrayShop
-//        );
-//
-//        search_shop.setAdapter(adapter);
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search, menu);
-        MenuItem item = menu.findItem(R.id.search_shop);
-        SearchView searchView = (SearchView) item.getActionView();
+        searchView.onActionViewExpanded();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                shopAdapter.getFilter().filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+                shopAdapter.getFilter().filter(newText);
                 return false;
             }
         });
 
-        return super.onCreateOptionsMenu(menu);
+        getListShops();
+        searchShop.setAdapter(shopAdapter);
+
     }
+
+    private void getListShops() {
+        FirebaseDatabase database =FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Shop");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    ShopModal item = dataSnapshot.getValue(ShopModal.class);
+                    shopModals.add(item);
+                };
+                shopAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
+    }
+
 }

@@ -1,100 +1,48 @@
 package com.app.bookstylist;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.app.bookstylist.book.BookServiceFrag;
-import com.app.bookstylist.book.BookTimeFrag;
-import com.app.bookstylist.book.BookingFrag;
-import com.google.android.material.tabs.TabLayout;
+import com.app.bookstylist.databinding.ActivityBookBinding;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+
+import java.util.Date;
 
 public class BookActivity extends AppCompatActivity {
-
-    TabLayout tabLayout;
-    FrameLayout frameLayout;
-    Fragment fragment = null;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
-    Button nextFrag;
+    private Date date_1;
+    private String date, time;
+    private ActivityBookBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book);
+        binding = ActivityBookBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        tabLayout = (TabLayout) findViewById(R.id.book_nav);
-        Toolbar toolbar =findViewById(R.id.topAppBar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.icon_x);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
+        builder.setTitleText("Chọn Ngày");
+        builder.setTheme(R.style.datepicker);
+
+        final MaterialDatePicker<Long> materialDatePicker = builder.build();
+        binding.btnDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Chuyener về shop
-                startActivity(new Intent(BookActivity.this, DashboardUserActivity.class));
-            }
-        });
-        frameLayout = (FrameLayout) findViewById(R.id.frame_book);
-        fragment = new BookServiceFrag();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-
-        fragmentTransaction.replace(R.id.frame_book,fragment);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragmentTransaction.commit();
-        // Disable nav
-//        LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
-//        for(int i = 0; i < tabStrip.getChildCount(); i++) {
-//            tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View v, MotionEvent event) {
-//                    return true;
-//                }
-//            });
-//        }
-        // Nav Choose
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                //Fragment fragment = null;
-                switch (tab.getPosition()){
-                    case 0:
-                        fragment = new BookServiceFrag();
-                        break;
-                    case 1:
-                        fragment = new BookTimeFrag();
-                        break;
-                    case 2:
-                        fragment = new BookingFrag();
-                        break;
-                }
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.frame_book,fragment);
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.commit();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+                materialDatePicker.show(getSupportFragmentManager(),"Date Pick");
             }
         });
 
+        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+            @Override
+            public void onPositiveButtonClick(Long selection) {
+                binding.txtday.setText(materialDatePicker.getHeaderText());
+                date_1 = new Date(materialDatePicker.getSelection());
+                
+            }
+        });
 
 
     }

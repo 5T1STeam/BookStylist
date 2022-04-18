@@ -3,6 +3,7 @@ package com.app.bookstylist;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -87,6 +88,14 @@ public class DashboardUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(DashboardUserActivity.this, SearchActivity.class));
+            }
+        });
+        //Chuyển tab
+        binding.bottomNavi.getMenu().getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                startActivity(new Intent(DashboardUserActivity.this, SearchActivity.class));
+                return false;
             }
         });
     }

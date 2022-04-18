@@ -1,35 +1,84 @@
 package com.app.bookstylist.shop;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 
+public class ShopModal {
+    private Integer id;
+    private String name, address, email, image, phone, service, desc;
+    private Float rating;
 
-public class ShopModal implements Parcelable {
+    public ShopModal(){
 
-    public ShopModal(){}
-    protected ShopModal(Parcel in) {
     }
 
-    public static final Creator<ShopModal> CREATOR = new Creator<ShopModal>() {
-        @Override
-        public ShopModal createFromParcel(Parcel in) {
-            return new ShopModal(in);
-        }
-
-        @Override
-        public ShopModal[] newArray(int size) {
-            return new ShopModal[size];
-        }
-    };
-
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public Integer getId() {
+        return id;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 }
