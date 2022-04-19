@@ -73,10 +73,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
         return 0;
     }
 
-    public interface ItemOnClickListener{
-        void onClick(View v, int position);
-    }
-
 
     public class ShopViewHolder extends RecyclerView.ViewHolder{
 
