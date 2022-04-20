@@ -1,6 +1,7 @@
-package com.app.bookstylist.home;
+package com.app.bookstylist.shop;
 
 public class Service {
+
     private String name;
 
     public Service(String name, String image) {

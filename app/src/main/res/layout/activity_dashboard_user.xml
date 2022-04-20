@@ -101,21 +101,7 @@
 
             </LinearLayout>
 <!--            test-->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnBook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@id/rcvShop"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="160dp"
-                android:layout_marginTop="500dp"
-                android:layout_marginEnd="163dp"
-                android:layout_marginBottom="63dp"
-                android:backgroundTint="@color/main"
 
-                android:text="Book"
-                android:textSize="17sp"
-                app:cornerRadius="@dimen/browser_actions_context_menu_max_width" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvCate"

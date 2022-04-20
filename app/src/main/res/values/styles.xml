@@ -27,6 +27,11 @@
         <!--<item name="android:background">?attr/colorPrimary</item>-->
         <item name="android:background">@color/main</item>
     </style>
+    <style name="timepicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorPrimary">@color/main</item>
+        <item name="colorOnSurface">@color/back_search</item>
+
+    </style>
     <style name="TextButton.Dialog1" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/main</item>

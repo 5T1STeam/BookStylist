@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.bookstylist.R;
+import com.app.bookstylist.shop.Service;
 import com.bumptech.glide.Glide;
 
 import java.util.List;

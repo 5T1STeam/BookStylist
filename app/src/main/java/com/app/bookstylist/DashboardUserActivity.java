@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.bookstylist.databinding.ActivityDashboardUserBinding;
 import com.app.bookstylist.home.Cate;
 import com.app.bookstylist.home.CateAdapter;
-import com.app.bookstylist.home.Service;
+import com.app.bookstylist.shop.Service;
 import com.app.bookstylist.home.ServiceAdapter;
 import com.app.bookstylist.home.ShopAdapter;
 import com.app.bookstylist.shop.ShopModal;
@@ -77,12 +77,6 @@ public class DashboardUserActivity extends AppCompatActivity {
         getCate();
         getService();
 
-        binding.btnBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(DashboardUserActivity.this, BookActivity.class));
-            }
-        });
 
         binding.search.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -54,6 +54,10 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, ShopActivity.class);
                 intent.putExtra("name",shopModal.getName());
+                intent.putExtra("service", shopModal.getService());
+                intent.putExtra("address", shopModal.getAddress());
+                intent.putExtra("id",String.valueOf(shopModal.getId()));
+                intent.putExtra("img",shopModal.getImage());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }
