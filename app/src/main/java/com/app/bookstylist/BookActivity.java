@@ -228,12 +228,12 @@ public class BookActivity extends AppCompatActivity {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
         ref.push().setValue(book);
+        progressDialog.show();
+        startActivity(new Intent(BookActivity.this, DashboardUserActivity.class));
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                progressDialog.show();
-                progressDialog.dismiss();
-                startActivity(new Intent(BookActivity.this, DashboardUserActivity.class));
+
             }
 
             @Override
