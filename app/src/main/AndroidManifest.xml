@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.app.bookstylist">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +16,18 @@
         android:theme="@style/Theme.BookStylist"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity
+            android:name=".FavoriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileEditInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileUserActivity"
+            android:exported="false" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
@@ -32,11 +48,13 @@
             android:exported="false" />
         <activity
             android:name=".BookActivity"
-            android:exported="false"/>
-        <activity android:name=".SearchActivity"
-            android:exported="false"/>
-        <activity android:name=".ShopActivity"
-            android:exported="false"/>
+            android:exported="false" />
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ShopActivity"
+            android:exported="false" />
         <activity
             android:name=".SplashActivity"
             android:exported="true">

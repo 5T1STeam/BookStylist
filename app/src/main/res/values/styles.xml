@@ -37,4 +37,5 @@
         <item name="backgroundTint">@color/main</item>
         <item name="android:radius">@dimen/browser_actions_context_menu_max_width</item>
     </style>
+
 </resources>

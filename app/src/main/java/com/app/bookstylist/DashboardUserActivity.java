@@ -18,6 +18,8 @@ import com.app.bookstylist.shop.Service;
 import com.app.bookstylist.home.ServiceAdapter;
 import com.app.bookstylist.home.ShopAdapter;
 import com.app.bookstylist.shop.ShopModal;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +31,7 @@ import java.util.List;
 
 
 public class DashboardUserActivity extends AppCompatActivity {
+    private FirebaseAuth firebaseAuth;
     private ActivityDashboardUserBinding binding;
     private RecyclerView rcvShop;
     private ShopAdapter mShopAdapter;
@@ -49,6 +52,19 @@ public class DashboardUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityDashboardUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        //Check user
+        firebaseAuth = FirebaseAuth.getInstance();
+        checkUser();
+
+        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAuth.signOut();
+                checkUser();
+            }
+        });
+        //
 
         rcvShop= findViewById(R.id.rcvShop);
         mListShop=new ArrayList<>();
@@ -89,6 +105,13 @@ public class DashboardUserActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 startActivity(new Intent(DashboardUserActivity.this, SearchActivity.class));
+                return false;
+            }
+        });
+        binding.bottomNavi.getMenu().getItem(3).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                startActivity(new Intent(DashboardUserActivity.this,ProfileMenuActivity.class));
                 return false;
             }
         });
@@ -165,6 +188,16 @@ public class DashboardUserActivity extends AppCompatActivity {
         });
 
     }
+    private void checkUser() {
+        FirebaseUser firebaseUser= firebaseAuth.getCurrentUser();
+        if(firebaseUser==null){
+            startActivity(new Intent(DashboardUserActivity.this,MainActivity.class));
+            finish();
+
+        }
+
+    }
+
 
 
 
