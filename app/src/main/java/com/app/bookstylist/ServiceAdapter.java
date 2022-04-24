@@ -1,49 +1,39 @@
-package com.app.bookstylist.home;
+package com.app.bookstylist;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.app.bookstylist.R;
 import com.app.bookstylist.shop.Service;
-import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder> {
 
     private List<Service> mListService;
-    private Context mContext;
-    public ServiceAdapter(List<Service> mListService,Context mContext) {
+    public ServiceAdapter(List<Service> mListService) {
         this.mListService = mListService;
-        this.mContext = mContext;
     }
 
     @NonNull
     @Override
     public ServiceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_service,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_service_detail,parent,false);
         return new ServiceViewHolder(view);
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull ServiceViewHolder holder, int position) {
         Service service = mListService.get(position);
-        if (service==null){return;
-
-        }
-        holder.tvNameService.setText(service.getName());
-        Glide.with(mContext).load(service.getImage()).into(holder.Image);
-
-
-
+        if (service==null){return; }
+        holder.tv_name.setText(service.getName());
+        holder.tv_price.setText( withLargeIntegers(service.getPrice()));
+        holder.tv_time.setText(service.getTime() +"p");
     }
 
     @Override
@@ -56,16 +46,18 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
 
     public  class ServiceViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView tvNameService;
-        private ImageView Image;
-
-
+        private TextView tv_name, tv_price, tv_time;
 
         public ServiceViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvNameService=itemView.findViewById(R.id.nameService);
-            Image =itemView.findViewById(R.id.iconService);
+            tv_name=itemView.findViewById(R.id.tv_name);
+            tv_price=itemView.findViewById(R.id.tv_price);
+            tv_time=itemView.findViewById(R.id.tv_time);
 
         }
+    }
+    public static String withLargeIntegers(double value) {
+        DecimalFormat df = new DecimalFormat("###,###,###");
+        return df.format(value);
     }
 }

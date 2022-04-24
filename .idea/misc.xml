@@ -3,30 +3,37 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable-xhdpi/ic_edit_white.xml" value="0.132" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/background_btn_white.xml" value="0.1" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/drawable-ldpi/scrim_topdown.xml" value="0.1715" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/drawable/scrim.xml" value="0.1715" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/activity_book.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/activity_dashboard_admin.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/activity_dashboard_user.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/activity_favorite.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/activity_login.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/activity_profile_menu.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/activity_seach.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/activity_shop.xml" value="0.264" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/activity_splash.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/fragment_detail.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/fragment_picture.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/fragment_review.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/fragment_service.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/item.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/item_img_card.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/item_service.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/item_service_detail.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/item_shop.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/list_service.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/slider_item.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/ic_baseline_security_24.xml" value="0.1" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/ic_favorite_border_white.xml" value="0.1" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/ic_favorite_heart_black.xml" value="0.1" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/ic_heart_black_favorite.xml" value="0.1" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/ic_location_black.xml" value="0.1" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/ic_person_black.xml" value="0.1" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/ic_user_black.xml" value="0.1" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/input_bg.xml" value="0.1" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/input_password_reset.xml" value="0.1" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/drawable/shape_toolbar.xml" value="0.1" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_dashboard_user.xml" value="0.1762917933130699" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_favorite.xml" value="0.25" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_forgot_password.xml" value="0.33" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_home.xml" value="0.12222222222222222" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_profile_edit_info.xml" value="0.17603850050658562" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_profile_menu.xml" value="0.17603850050658562" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_profile_user.xml" value="0.17603850050658562" />
         <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_register.xml" value="0.12222222222222222" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_seach.xml" value="0.1" />
-        <entry key="..\:/Users/PC/AndroidStudioProjects/BookStylist/app/src/main/res/layout/activity_shop.xml" value="0.33" />
         <entry key="..\:/Users/tanir/Documents/LMS-UEH/Android/BookStylist/app/src/main/res/drawable/bg_ra.xml" value="0.137" />
         <entry key="..\:/Users/tanir/Documents/LMS-UEH/Android/BookStylist/app/src/main/res/drawable/bg_rv.xml" value="0.235" />
         <entry key="..\:/Users/tanir/Documents/LMS-UEH/Android/BookStylist/app/src/main/res/drawable/ic_back_main.xml" value="0.1" />
