@@ -12,4 +12,7 @@
     <color name="text_card">#4F4240 </color>
     <color name="back_search">#120f0e</color>
     <color name="purple">#9900F0</color>
+    <color name="black_trans">#33000000</color>
+    <color name="trans">#00000000</color>
+    <color name="red">#F51313</color>
 </resources>
