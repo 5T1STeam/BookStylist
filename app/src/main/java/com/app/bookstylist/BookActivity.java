@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ public class BookActivity extends AppCompatActivity {
     private List<ServiceCheck> listService;
     private ServiceAdapter adapter;
 
-    private Integer hour, minutes;
+    private LocalTime timeBook;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private MaterialAlertDialogBuilder war;
@@ -79,6 +80,7 @@ public class BookActivity extends AppCompatActivity {
         final MaterialDatePicker<Long> materialDatePicker = builder.build();
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH : mm");
 
 
         rcvService = findViewById(R.id.recycleService);
@@ -122,7 +124,76 @@ public class BookActivity extends AppCompatActivity {
         materialTimePicker.addOnPositiveButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(materialTimePicker.getHour() > 19 || materialTimePicker.getHour() < 7){
+                LocalDateTime checkTime = LocalDateTime.now();
+                if(dateBook.getMonth()==checkTime.getMonth()
+                        && dateBook.getDayOfMonth() == checkTime.getDayOfMonth()
+                        && dateBook.getYear() == checkTime.getYear()){
+                    if(checkTime.getHour() >= 19 && checkTime.getMinute() >= 30  ){
+                        // quá ngày
+                        war = new MaterialAlertDialogBuilder(BookActivity.this);
+                        war.setTitle("Thông báo");
+                        war.setMessage("Vui lòng đặt lịch vào ngày hôm sau. Để chúng tôi có thể phục vụ cho bạn. ");
+                        war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dateBook = null;
+                                binding.txtday.setText("Vui lòng chọn lại");
+                                binding.txttime.setText("Vui lòng chọn lại");
+                            }
+                        });
+                        war.show();
+                    }else if((materialTimePicker.getHour() == checkTime.getHour() && (materialTimePicker.getMinute() <= checkTime.getMinute()))
+                            || materialTimePicker.getHour() < checkTime.getHour()){
+                        //Cùng date nhưng nhỏ time
+                        LocalTime messTime = LocalTime.of(0,0);
+
+                        if(checkTime.getMinute()>=30){
+                            messTime = LocalTime.of(checkTime.getHour()+1,0);
+                        }else{
+                            messTime = LocalTime.of(checkTime.getHour(),checkTime.getMinute());
+                        }
+                        String timeWar = timeFormatter.format(messTime);
+                        war = new MaterialAlertDialogBuilder(BookActivity.this);
+                        war.setTitle("Thông báo");
+                        war.setMessage("Vui lòng đặt lịch trong phạm vi từ "+timeWar+" đến 19:00 PM. Để chúng tôi có thể phục vụ cho bạn. ");
+                        war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                binding.txttime.setText("Vui lòng chọn lại");
+                            }
+                        });
+                        war.show();
+                    }else if( materialTimePicker.getHour() < 7){
+                        war = new MaterialAlertDialogBuilder(BookActivity.this);
+                        war.setTitle("Thông báo");
+                        war.setMessage("Vui lòng đặt lịch trong phạm vi từ 7:00 AM đến 19:00 PM. Để chúng tôi có thể phục vụ cho bạn. ");
+                        war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                binding.txttime.setText("Vui lòng chọn lại");
+                            }
+                        });
+                        war.show();
+                    } else if(materialTimePicker.getHour() > 19){
+                        //Sau 19h
+                        war = new MaterialAlertDialogBuilder(BookActivity.this);
+                        war.setTitle("Thông báo");
+                        war.setMessage("Vui lòng đặt lịch vào ngày hôm sau. Để chúng tôi có thể phục vụ cho bạn. ");
+                        war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dateBook = null;
+                                binding.txtday.setText("Vui lòng chọn lại");
+                                binding.txttime.setText("Vui lòng chọn lại");
+                            }
+                        });
+                        war.show();
+                    } else {
+                            timeBook = LocalTime.of(materialTimePicker.getHour(),materialTimePicker.getMinute());
+                            binding.txttime.setText(timeFormatter.format(timeBook));
+                    }
+
+                } else if(materialTimePicker.getHour() > 19 || materialTimePicker.getHour() < 7){
                     war = new MaterialAlertDialogBuilder(BookActivity.this);
                     war.setTitle("Thông báo");
                     war.setMessage("Vui lòng đặt lịch trong phạm vi từ 7:00 AM đến 19:00 PM. Để chúng tôi có thể phục vụ cho bạn. ");
@@ -134,9 +205,8 @@ public class BookActivity extends AppCompatActivity {
                     });
                     war.show();
                 }else {
-                    hour =  materialTimePicker.getHour();
-                    minutes = materialTimePicker.getMinute();
-                    binding.txttime.setText(hour + " : "+ minutes);
+                    timeBook = LocalTime.of(materialTimePicker.getHour(),materialTimePicker.getMinute());
+                    binding.txttime.setText(timeFormatter.format(timeBook));
                 }
             }
         });
@@ -154,7 +224,7 @@ public class BookActivity extends AppCompatActivity {
                         }
                     });
                     war.show();
-                }else if(dateBook == null || hour == null || minutes == null){
+                }else if(dateBook == null || timeBook == null){
                     war = new MaterialAlertDialogBuilder(BookActivity.this);
                     war.setTitle("Thông báo");
                     war.setMessage("Vui lòng đặt lịch trong phạm vi từ 7:00 AM đến 19:00 PM. Để chúng tôi có thể phục vụ cho bạn. ");
@@ -167,7 +237,7 @@ public class BookActivity extends AppCompatActivity {
                     war.show();
                 }else {
                     String service = "";
-                    LocalDateTime time = LocalDateTime.of(dateBook.getYear(),dateBook.getMonth(),dateBook.getDayOfMonth(),hour,minutes);
+                    LocalDateTime time = LocalDateTime.of(dateBook.getYear(),dateBook.getMonth(),dateBook.getDayOfMonth(),timeBook.getHour(),timeBook.getMinute());
                     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
 
                     if(adapter.getSelectedService().size()>1){
@@ -229,7 +299,7 @@ public class BookActivity extends AppCompatActivity {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
         ref.push().setValue(book);
         progressDialog.show();
-        startActivity(new Intent(BookActivity.this, DashboardUserActivity.class));
+        startActivityForResult(new Intent(BookActivity.this, DashboardUserActivity.class),2);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
