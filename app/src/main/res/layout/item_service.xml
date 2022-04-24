@@ -7,14 +7,15 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iconService"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        app:shapeAppearanceOverlay="@style/cir"
-        app:srcCompat="@drawable/nen" />
+        android:scaleType="fitCenter"
 
+        app:srcCompat="@drawable/nen" />
+<!--    app:shapeAppearanceOverlay="@style/cir"-->
     <TextView
         android:id="@+id/nameService"
         android:layout_width="match_parent"

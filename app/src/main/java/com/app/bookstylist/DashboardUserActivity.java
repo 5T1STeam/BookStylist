@@ -166,7 +166,7 @@ public class DashboardUserActivity extends AppCompatActivity {
     }
     private void getService(){
         FirebaseDatabase database =FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("services");
+        DatabaseReference myRef = database.getReference("Service Parent");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override

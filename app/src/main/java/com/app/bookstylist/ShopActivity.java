@@ -3,6 +3,7 @@ package com.app.bookstylist;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.app.bookstylist.databinding.ActivityShopBinding;
+import com.app.bookstylist.detail.ViewPagerAdapter;
 import com.app.bookstylist.home.ShopAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -58,6 +60,9 @@ public class ShopActivity extends AppCompatActivity {
         Intent get = getIntent();
         firebaseAuth = FirebaseAuth.getInstance();
 
+
+
+
         String a = get.getStringExtra("name");
         String shopId = get.getStringExtra("id");
         String rateNum = get.getStringExtra("rate");
@@ -78,11 +83,11 @@ public class ShopActivity extends AppCompatActivity {
         });
         binding.shopName.setText(a);
         binding.shopAddress.setText(get.getStringExtra("address"));
-        binding.idShop.setText(shopId);
+
         binding.rateNum.setText(rateNum);
         binding.rateCount.setText(rateCount + " đánh giá");
         //toolbar
-        toolbar = findViewById(R.id.toolbarRl);
+        toolbar =  findViewById(R.id.toolbarRl);
         fabFavor = findViewById(R.id.btnFavor);
         imageView = findViewById(R.id.banner);
 
@@ -91,8 +96,9 @@ public class ShopActivity extends AppCompatActivity {
         if(getSupportActionBar() !=null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         }
-       final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsingToolbarLayout);
+        final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsingToolbarLayout);
         Picasso.get().load(get.getStringExtra("img")).into(imageView);
         collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.main));
         collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(R.color.main));
@@ -157,6 +163,12 @@ public class ShopActivity extends AppCompatActivity {
         }).attach();
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        startActivity(new Intent(ShopActivity.this, DashboardUserActivity.class));
+        return super.onOptionsItemSelected(item);
     }
 
     public void checkIsFavorite(Context context, String shopId ){
@@ -225,9 +237,6 @@ public class ShopActivity extends AppCompatActivity {
         if(firebaseUser==null){
             Toast.makeText(this, "Your are not loggin", Toast.LENGTH_SHORT).show();
 
-        }
-        else{
-            binding.getUid.setText(firebaseAuth.getUid());
         }
 
     }

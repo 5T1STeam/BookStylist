@@ -14,6 +14,7 @@ import android.view.View;
 
 
 import com.app.bookstylist.databinding.ActivityProfileMenuBinding;
+import com.app.bookstylist.detail.FavoriteActivity;
 import com.bumptech.glide.Glide;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,7 +39,7 @@ public class ProfileMenuActivity extends AppCompatActivity {
         binding.btnFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProfileMenuActivity.this,FavoriteActivity.class));
+                startActivity(new Intent(ProfileMenuActivity.this, FavoriteActivity.class));
             }
         });
 

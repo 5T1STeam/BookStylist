@@ -1,4 +1,4 @@
-package com.app.bookstylist;
+package com.app.bookstylist.detail;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.bookstylist.R;
 import com.app.bookstylist.shop.Service;
+import com.app.bookstylist.shop.ShopModal;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,9 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceFragment extends Fragment {
+public class ServiceFragment extends Fragment{
     int shopId;
     Button btn_book;
+    ShopModal shopModal;
     RecyclerView recyclerView;
     ServiceAdapter serviceAdapter;
     private List<Service> serviceList;
@@ -38,12 +41,32 @@ public class ServiceFragment extends Fragment {
 
     private void getServiceShop() {
         FirebaseDatabase database =FirebaseDatabase.getInstance();
+        DatabaseReference myShop = database.getReference("Shop");
+        myShop.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    ShopModal check = dataSnapshot.getValue(ShopModal.class);
+                    if(shopId == check.getId()){
+                        shopModal = check;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         DatabaseReference myRef = database.getReference("services");
-        myRef.orderByChild("shopid").equalTo(shopId).addValueEventListener(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot unit : snapshot.getChildren()){
-                    serviceList.add( unit.getValue(Service.class));
+                    Service service = unit.getValue(Service.class);
+                    if(shopModal.getId() == service.getShopId()){
+                        serviceList.add( unit.getValue(Service.class));
+                    }
                 }
                 serviceAdapter.notifyDataSetChanged();
             }
@@ -71,4 +94,6 @@ public class ServiceFragment extends Fragment {
         getServiceShop();
         return view;
     }
+
+
 }

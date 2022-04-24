@@ -1,12 +1,12 @@
-package com.app.bookstylist;
+package com.app.bookstylist.detail;
+
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.widget.TextView;
-
+import com.app.bookstylist.R;
 import com.app.bookstylist.databinding.ActivityFavoriteBinding;
 import com.app.bookstylist.shop.FavoriteShop;
 import com.app.bookstylist.shop.ShopAdapter;

@@ -30,7 +30,8 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/main"
                     app:title="Đặt lịch"
-                    app:titleTextColor="@color/white" />
+                    app:titleTextColor="@color/white"
+                    android:theme="@style/Theme.AppCompat"/>
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView

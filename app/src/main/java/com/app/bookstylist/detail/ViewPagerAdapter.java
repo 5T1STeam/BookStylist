@@ -1,4 +1,4 @@
-package com.app.bookstylist;
+package com.app.bookstylist.detail;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

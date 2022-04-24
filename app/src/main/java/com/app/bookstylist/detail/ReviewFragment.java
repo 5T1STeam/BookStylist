@@ -1,4 +1,4 @@
-package com.app.bookstylist;
+package com.app.bookstylist.detail;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+
+import com.app.bookstylist.R;
 
 public class ReviewFragment extends Fragment {
 

@@ -1,6 +1,7 @@
 package com.app.bookstylist.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.bookstylist.R;
+import com.app.bookstylist.SearchActivity;
 import com.app.bookstylist.shop.Service;
 import com.bumptech.glide.Glide;
 
@@ -41,7 +43,15 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         }
         holder.tvNameService.setText(service.getName());
         Glide.with(mContext).load(service.getImage()).into(holder.Image);
-
+        holder.Image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, SearchActivity.class);
+                intent.putExtra("Service Parent", service.getName());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+            }
+        });
 
 
     }

@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".FavoriteActivity"
+            android:name=".detail.FavoriteActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileEditInfoActivity"

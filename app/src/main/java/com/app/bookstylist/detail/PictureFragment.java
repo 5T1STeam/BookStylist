@@ -1,4 +1,4 @@
-package com.app.bookstylist;
+package com.app.bookstylist.detail;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.bookstylist.R;
 import com.app.bookstylist.shop.PictureAdapter;
 import com.app.bookstylist.shop.Rates;
 import com.google.firebase.database.DataSnapshot;

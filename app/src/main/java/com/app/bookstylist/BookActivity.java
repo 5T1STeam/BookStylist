@@ -5,12 +5,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,6 +65,12 @@ public class BookActivity extends AppCompatActivity {
         Intent intent = getIntent();
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
+
+        Toolbar toolbar = binding.topAppBar;
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
         CalendarConstraints.Builder calenderConstraints = new CalendarConstraints.Builder();
@@ -323,7 +331,10 @@ public class BookActivity extends AppCompatActivity {
 
     }
 
-
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        startActivity(new Intent(BookActivity.this, DashboardUserActivity.class));
+        return super.onOptionsItemSelected(item);
+    }
 }
 

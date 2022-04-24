@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingStart="16dp"
     android:paddingTop="16dp"
@@ -58,7 +59,8 @@
             android:backgroundTint="@color/main"
             android:layout_marginStart="20dp"
             android:text="Book"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            app:cornerRadius="@dimen/browser_actions_context_menu_max_width"/>
 
     </LinearLayout>
 
