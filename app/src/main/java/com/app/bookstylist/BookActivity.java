@@ -412,7 +412,14 @@ public class BookActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        startActivity(new Intent(BookActivity.this, DashboardUserActivity.class));
+        Intent intent = new Intent(BookActivity.this, ShopActivity.class);
+        intent.putExtra("name",shopModal.getName());
+        intent.putExtra("address", shopModal.getAddress());
+        intent.putExtra("id",String.valueOf(shopModal.getId()));
+        intent.putExtra("img",shopModal.getImage());
+        intent.putExtra("rate",String.valueOf(shopModal.getRating()));
+        intent.putExtra("comment",String.valueOf(shopModal.getComment()));
+        startActivity(intent);
         return super.onOptionsItemSelected(item);
     }
 }
