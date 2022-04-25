@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.bookstylist.R;
+import com.app.bookstylist.bookstylist_interface.IClickServiceBook;
+import com.app.bookstylist.shop.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,21 +20,23 @@ import java.util.List;
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MultiViewHolder> {
 
     private Context context;
-    private List<ServiceCheck> allService;
+    private List<Service> allService;
+    private IClickServiceBook clickServiceBook;
 
-    public ServiceAdapter(List<ServiceCheck> allService, Context context){
+    public ServiceAdapter(List<Service> allService, Context context, IClickServiceBook iClickServiceBook){
         this.allService = allService;
         this.context = context;
+        this.clickServiceBook = iClickServiceBook;
     }
 
-    public void setAllService(List<ServiceCheck> allService){
+    public void setAllService(List<Service> allService){
         this.allService = new ArrayList<>();
         this.allService = allService;
         notifyDataSetChanged();
     }
 
-    public List<ServiceCheck> getSelectedService(){
-        List<ServiceCheck> list = new ArrayList<>();
+    public List<Service> getSelectedService(){
+        List<Service> list = new ArrayList<>();
         for (int i=0; i< allService.size(); i++ ){
             if(allService.get(i).isChecked()){
                 list.add(allService.get(i));
@@ -70,7 +74,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MultiVie
             imageCheck = itemView.findViewById(R.id.imgSer);
         }
 
-        public void bind(final ServiceCheck serviceCheck){
+        public void bind(final Service serviceCheck){
             imageCheck.setVisibility(serviceCheck.isChecked() ? View.VISIBLE : View.GONE);
             txtService.setText(serviceCheck.getName());
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -78,12 +82,13 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MultiVie
                 public void onClick(View view) {
                     serviceCheck.setCheckSelect(!serviceCheck.isChecked());
                     imageCheck.setVisibility(serviceCheck.isChecked()? View.VISIBLE : View.GONE);
+                    clickServiceBook.onClickTimeListener(serviceCheck);
                 }
             });
         }
     }
 
-    public List<ServiceCheck> getall(){return allService;}
+    public List<Service> getall(){return allService;}
 
 
 }

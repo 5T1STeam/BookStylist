@@ -65,7 +65,7 @@ public class ServiceFragment extends Fragment{
                 for(DataSnapshot unit : snapshot.getChildren()){
                     Service service = unit.getValue(Service.class);
                     if(shopModal.getId() == service.getShopId()){
-                        serviceList.add( unit.getValue(Service.class));
+                        serviceList.add(service);
                     }
                 }
                 serviceAdapter.notifyDataSetChanged();

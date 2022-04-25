@@ -3,7 +3,7 @@ package com.app.bookstylist.shop;
 
 public class ShopModal {
     private Integer id;
-    private String name, address, email, image, phone, service, desc;
+    private String name, address, email, image, phone, desc;
     private Float rating;
     private Integer comment;
 
@@ -67,13 +67,6 @@ public class ShopModal {
         this.phone = phone;
     }
 
-    public String getService() {
-        return service;
-    }
-
-    public void setService(String service) {
-        this.service = service;
-    }
 
     public Float getRating() {
         return rating;

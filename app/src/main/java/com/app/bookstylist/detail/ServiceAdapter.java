@@ -42,8 +42,9 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
             public void onClick(View view) {
                 //chuyển id shop và id services đặt lịch
                 Intent intent = new Intent(view.getContext(), BookActivity.class);
-                intent.putExtra("id",service.getShopId());
+                intent.putExtra("id",String.valueOf(service.getShopId()));
                 intent.putExtra("service choose", service.getName());
+                view.getContext().startActivity(intent);
             }
         });
     }

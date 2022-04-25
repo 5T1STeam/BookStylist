@@ -15,4 +15,5 @@
     <color name="black_trans">#33000000</color>
     <color name="trans">#00000000</color>
     <color name="red">#F51313</color>
+    <color name="light_main">#FFB7A8</color>
 </resources>

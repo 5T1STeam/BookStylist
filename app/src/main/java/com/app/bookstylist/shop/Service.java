@@ -15,6 +15,15 @@ public class Service {
     private int shopid;
     private  int price;
     private int time;
+    private boolean isChecked = false;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setCheckSelect(boolean checkSelect) {
+        this.isChecked = checkSelect;
+    }
 
     public String getName() {
         return name;

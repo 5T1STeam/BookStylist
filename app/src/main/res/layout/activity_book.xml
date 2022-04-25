@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="100dp"
-                    android:text="../../...."
+                    android:text="Chọn ngày thích hợp"
                     android:textSize="17sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -134,7 +134,7 @@
                     android:layout_column="1"
                     android:layout_height="wrap_content"
                     android:paddingEnd="100dp"
-                    android:text=".... : ...."
+                    android:text="Chọn giờ thích hợp"
                     android:textSize="17sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -209,6 +209,37 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="15dp"
+                android:columnCount="1"
+                android:rowCount="2"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tổng cộng :"
+                    android:textSize="18sp"
+                    android:layout_gravity="right"
+                    />
+                <TextView
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:id="@+id/billService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Tổng"
+                    android:textSize="20sp"
+                    android:layout_gravity="right"
+                    android:textStyle="bold"
+                    />
+            </GridLayout>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBook"
                 android:layout_width="wrap_content"
@@ -219,7 +250,8 @@
                 android:backgroundTint="@color/main"
                 android:text="Book"
                 android:textSize="17sp"
-                app:cornerRadius="@dimen/browser_actions_context_menu_max_width" />
+                app:cornerRadius="@dimen/browser_actions_context_menu_max_width"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </ScrollView>

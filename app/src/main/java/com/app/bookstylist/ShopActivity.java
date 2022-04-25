@@ -18,6 +18,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.app.bookstylist.databinding.ActivityShopBinding;
 import com.app.bookstylist.detail.ViewPagerAdapter;
 import com.app.bookstylist.home.ShopAdapter;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.AppBarLayout;
@@ -32,7 +33,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -69,11 +69,7 @@ public class ShopActivity extends AppCompatActivity {
         String rateCount = get.getStringExtra("comment");
 
         Intent intent = new Intent(ShopActivity.this,BookActivity.class);
-        intent.putExtra("name", a);
         intent.putExtra("id", shopId);
-        intent.putExtra("service", get.getStringExtra("service"));
-        intent.putExtra("address", get.getStringExtra("address"));
-        intent.putExtra("img",get.getStringExtra("img"));
 
         binding.btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +95,7 @@ public class ShopActivity extends AppCompatActivity {
 
         }
         final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsingToolbarLayout);
-        Picasso.get().load(get.getStringExtra("img")).into(imageView);
+        Glide.with(this).load(get.getStringExtra("img")).into(imageView);
         collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.main));
         collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(R.color.main));
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);

@@ -35,7 +35,22 @@
     <style name="TextButton.Dialog1" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/main</item>
-        <item name="android:radius">@dimen/browser_actions_context_menu_max_width</item>
+        <item name="android:radius">50dp</item>
+    </style>
+
+    <style name="MaterialAlertDialog_Theme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/main</item>
+        <item name="colorSecondary">@color/main</item>
+        <item name="colorSurface">@color/light_main</item>
+        <item name="colorOnSurface">@color/back_search</item>
+        <item name="buttonBarPositiveButtonStyle">@style/TextButton.Dialog1</item>
+        <item name="buttonBarNeutralButtonStyle">@style/TextButton.Dialog1</item>
+        <item name="shapeAppearanceMediumComponent">@style/RoundShapeAppearance</item>
+    </style>
+
+    <style name="RoundShapeAppearance" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
     </style>
 
 </resources>

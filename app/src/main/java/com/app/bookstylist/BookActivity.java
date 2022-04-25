@@ -1,5 +1,7 @@
 package com.app.bookstylist;
 
+import static com.app.bookstylist.detail.ServiceAdapter.withLargeIntegers;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,8 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.bookstylist.book.ServiceAdapter;
-import com.app.bookstylist.book.ServiceCheck;
+import com.app.bookstylist.bookstylist_interface.IClickServiceBook;
 import com.app.bookstylist.databinding.ActivityBookBinding;
+import com.app.bookstylist.shop.Service;
+import com.app.bookstylist.shop.ShopModal;
 import com.bumptech.glide.Glide;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -46,13 +50,15 @@ public class BookActivity extends AppCompatActivity {
     private LocalDateTime dateBook;
     private ActivityBookBinding binding;
     private RecyclerView  rcvService;
-    private List<ServiceCheck> listService;
+    private List<Service> listService;
     private ServiceAdapter adapter;
+    private Integer totalBill = 0;
 
     private LocalTime timeBook;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private MaterialAlertDialogBuilder war;
+    private ShopModal shopModal;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -94,11 +100,17 @@ public class BookActivity extends AppCompatActivity {
         rcvService = findViewById(R.id.recycleService);
         listService = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(BookActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        adapter = new ServiceAdapter(listService,this);
+        adapter = new ServiceAdapter(listService, this, new IClickServiceBook() {
+            @Override
+            public void onClickTimeListener(Service service) {
+                adđBilling(service);
+            }
+        });
         rcvService.setAdapter(adapter);
         rcvService.setLayoutManager(linearLayoutManager);
 
-        getService(intent.getStringExtra("service"));
+        getShop(Integer.valueOf(intent.getStringExtra("id")));
+        getService(intent.getStringExtra("service choose"));
 
         //Biến tạm
 
@@ -113,14 +125,26 @@ public class BookActivity extends AppCompatActivity {
         binding.btnTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                materialTimePicker.show(getSupportFragmentManager(), "Time Pick");
+                if(dateBook==null){
+                    war = new MaterialAlertDialogBuilder(BookActivity.this,R.style.MaterialAlertDialog_Theme);
+                    war.setTitle("Thông báo");
+                    war.setMessage("Vui lòng chọn ngày trước.");
+                    war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dateBook = null;
+                            binding.txtday.setText("Vui lòng chọn");
+                            binding.txttime.setText("Vui lòng chọn");
+                        }
+                    });
+                    war.show();
+                }else{
+                    materialTimePicker.show(getSupportFragmentManager(), "Time Pick");
+                }
+
             }
         });
-        binding.nameShop.setText(intent.getStringExtra("name"));
-        binding.addressShop.setText(intent.getStringExtra("address"));
 
-
-        Glide.with(getApplicationContext()).load(intent.getStringExtra("img")).into(binding.imageShop);
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
             @Override
             public void onPositiveButtonClick(Long selection) {
@@ -138,7 +162,7 @@ public class BookActivity extends AppCompatActivity {
                         && dateBook.getYear() == checkTime.getYear()){
                     if(checkTime.getHour() >= 19 && checkTime.getMinute() >= 30  ){
                         // quá ngày
-                        war = new MaterialAlertDialogBuilder(BookActivity.this);
+                        war = new MaterialAlertDialogBuilder(BookActivity.this,R.style.MaterialAlertDialog_Theme);
                         war.setTitle("Thông báo");
                         war.setMessage("Vui lòng đặt lịch vào ngày hôm sau. Để chúng tôi có thể phục vụ cho bạn. ");
                         war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -161,7 +185,7 @@ public class BookActivity extends AppCompatActivity {
                             messTime = LocalTime.of(checkTime.getHour(),checkTime.getMinute());
                         }
                         String timeWar = timeFormatter.format(messTime);
-                        war = new MaterialAlertDialogBuilder(BookActivity.this);
+                        war = new MaterialAlertDialogBuilder(BookActivity.this, R.style.MaterialAlertDialog_Theme);
                         war.setTitle("Thông báo");
                         war.setMessage("Vui lòng đặt lịch trong phạm vi từ "+timeWar+" đến 19:00 PM. Để chúng tôi có thể phục vụ cho bạn. ");
                         war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -172,7 +196,7 @@ public class BookActivity extends AppCompatActivity {
                         });
                         war.show();
                     }else if( materialTimePicker.getHour() < 7){
-                        war = new MaterialAlertDialogBuilder(BookActivity.this);
+                        war = new MaterialAlertDialogBuilder(BookActivity.this, R.style.MaterialAlertDialog_Theme);
                         war.setTitle("Thông báo");
                         war.setMessage("Vui lòng đặt lịch trong phạm vi từ 7:00 AM đến 19:00 PM. Để chúng tôi có thể phục vụ cho bạn. ");
                         war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -184,7 +208,7 @@ public class BookActivity extends AppCompatActivity {
                         war.show();
                     } else if(materialTimePicker.getHour() > 19){
                         //Sau 19h
-                        war = new MaterialAlertDialogBuilder(BookActivity.this);
+                        war = new MaterialAlertDialogBuilder(BookActivity.this, R.style.MaterialAlertDialog_Theme);
                         war.setTitle("Thông báo");
                         war.setMessage("Vui lòng đặt lịch vào ngày hôm sau. Để chúng tôi có thể phục vụ cho bạn. ");
                         war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -202,7 +226,7 @@ public class BookActivity extends AppCompatActivity {
                     }
 
                 } else if(materialTimePicker.getHour() > 19 || materialTimePicker.getHour() < 7){
-                    war = new MaterialAlertDialogBuilder(BookActivity.this);
+                    war = new MaterialAlertDialogBuilder(BookActivity.this, R.style.MaterialAlertDialog_Theme);
                     war.setTitle("Thông báo");
                     war.setMessage("Vui lòng đặt lịch trong phạm vi từ 7:00 AM đến 19:00 PM. Để chúng tôi có thể phục vụ cho bạn. ");
                     war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -223,7 +247,7 @@ public class BookActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(adapter.getSelectedService().size() == 0){
-                    war = new MaterialAlertDialogBuilder(BookActivity.this);
+                    war = new MaterialAlertDialogBuilder(BookActivity.this, R.style.MaterialAlertDialog_Theme);
                     war.setTitle("Thông báo");
                     war.setMessage("Vui lòng kiểm tra bạn đã chọn dịch vụ chưa.");
                     war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -233,13 +257,14 @@ public class BookActivity extends AppCompatActivity {
                     });
                     war.show();
                 }else if(dateBook == null || timeBook == null){
-                    war = new MaterialAlertDialogBuilder(BookActivity.this);
+                    war = new MaterialAlertDialogBuilder(BookActivity.this, R.style.MaterialAlertDialog_Theme);
                     war.setTitle("Thông báo");
                     war.setMessage("Vui lòng đặt lịch trong phạm vi từ 7:00 AM đến 19:00 PM. Để chúng tôi có thể phục vụ cho bạn. ");
                     war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            binding.txttime.setText("Vui lòng chọn lại");
+                            binding.txttime.setText("Vui lòng chọn");
+                            binding.txtday.setText("Vui lòng chọn");
                         }
                     });
                     war.show();
@@ -249,7 +274,7 @@ public class BookActivity extends AppCompatActivity {
                     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
 
                     if(adapter.getSelectedService().size()>1){
-                        for(ServiceCheck z : adapter.getSelectedService()){
+                        for(Service z : adapter.getSelectedService()){
                             if(z.getName() == adapter.getSelectedService().get(0).getName()){
                                 service = z.getName();
                             }else{
@@ -260,12 +285,49 @@ public class BookActivity extends AppCompatActivity {
                         service = adapter.getSelectedService().get(0).getName();
                     }
 
-
-                    bookingNow(intent.getStringExtra("id"),service, time.format(dateTimeFormatter));
+                    bookingNow(String.valueOf(shopModal.getId()),service, time.format(dateTimeFormatter));
                 }
             }
         });
 
+
+
+
+    }
+
+
+
+    private void adđBilling(Service service) {
+        if(service.isChecked()){
+            totalBill = totalBill + service.getPrice();
+        }else {
+            totalBill = totalBill - service.getPrice();
+        }
+        binding.billService.setText(withLargeIntegers(totalBill)+" VNĐ");
+    }
+
+    private void getShop(Integer shopId){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Shop");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    ShopModal check = dataSnapshot.getValue(ShopModal.class);
+                    if(check.getId() == shopId){
+                        shopModal = check;
+                    }
+                }
+                binding.nameShop.setText(shopModal.getName());
+                binding.addressShop.setText(shopModal.getAddress());
+                Glide.with(getApplicationContext()).load(shopModal.getImage()).into(binding.imageShop);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void getService(String service) {
@@ -276,12 +338,20 @@ public class BookActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listService.clear();
+
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    if(service.contains(dataSnapshot.getKey())){
-                        ServiceCheck service  = dataSnapshot.getValue(ServiceCheck.class);
-                        listService.add(service);
+                    Service serviceCheck = dataSnapshot.getValue(Service.class);
+                    if(serviceCheck.getShopId() == shopModal.getId()){
+                        if(serviceCheck.getName().equals(service)){
+                            totalBill = serviceCheck.getPrice();
+                            serviceCheck.setCheckSelect(true);
+
+                        }
+                        listService.add(serviceCheck);
                     }
                 }
+                binding.btnBook.setVisibility(View.VISIBLE);
+                binding.billService.setText(withLargeIntegers(totalBill)+ " VNĐ");
                 adapter.notifyDataSetChanged();
 
             }
@@ -295,19 +365,28 @@ public class BookActivity extends AppCompatActivity {
 
     private void bookingNow(String IdShop, String Service, String Time){
 
-        progressDialog.setMessage("Vui lòng đợi trong giây lát ...");
-
+        war = new MaterialAlertDialogBuilder(BookActivity.this, R.style.MaterialAlertDialog_Theme);
+        war.setTitle("Đặt lịch thành công");
+        war.setMessage("Cảm ơn đã sử dụng dịch vụ của chúng thôi");
+        war.setCancelable(false);
+        war.setPositiveButton("Quay lại", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(new Intent(BookActivity.this, DashboardUserActivity.class));
+            }
+        });
         HashMap<String, Object> book = new HashMap<>();
         book.put("uid", firebaseAuth.getUid());
         book.put("sid", IdShop);
         book.put("service", Service);
         book.put("time", Time);
         book.put("complete", "Đợi xác nhận");
+        book.put("price",totalBill);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
         ref.push().setValue(book);
-        progressDialog.show();
-        startActivityForResult(new Intent(BookActivity.this, DashboardUserActivity.class),2);
+        war.show();
+
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -317,7 +396,7 @@ public class BookActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 progressDialog.dismiss();
-                war = new MaterialAlertDialogBuilder(BookActivity.this);
+                war = new MaterialAlertDialogBuilder(BookActivity.this, R.style.MaterialAlertDialog_Theme);
                 war.setTitle("Thông báo");
                 war.setMessage("Đã có lỗi xảy ra. Vui lòng thử lại");
                 war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
