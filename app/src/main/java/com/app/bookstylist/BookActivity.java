@@ -375,6 +375,7 @@ public class BookActivity extends AppCompatActivity {
                 startActivity(new Intent(BookActivity.this, DashboardUserActivity.class));
             }
         });
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books").push();
         HashMap<String, Object> book = new HashMap<>();
         book.put("uid", firebaseAuth.getUid());
         book.put("sid", IdShop);
@@ -382,9 +383,8 @@ public class BookActivity extends AppCompatActivity {
         book.put("time", Time);
         book.put("complete", "Đợi xác nhận");
         book.put("price",totalBill);
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
-        ref.push().setValue(book);
+        book.put("bid", ref.getKey());
+        ref.setValue(book);
         war.show();
 
         ref.addValueEventListener(new ValueEventListener() {
