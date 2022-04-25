@@ -50,7 +50,6 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureV
     public  class PictureViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView image;
-        private CardView cardView;
         public PictureViewHolder(@NonNull View itemView) {
             super(itemView);
             image =itemView.findViewById(R.id.item_img);

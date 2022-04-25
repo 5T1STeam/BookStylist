@@ -46,6 +46,38 @@ public class Rates {
     private String desc;
     private String img;
     private int rate;
+    private String name;
+    private String profileImage;
+    private String createdate;
+
+
+
+    public String getCreatedate() {
+        return createdate;
+    }
+
+    public void setCreatedate(String createdate) {
+        this.createdate = createdate;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
+
 
     public Rates(int shopid, String userid, String desc, String img, int rate) {
         this.shopid = shopid;

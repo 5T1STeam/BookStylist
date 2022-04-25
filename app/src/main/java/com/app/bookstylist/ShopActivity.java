@@ -96,7 +96,7 @@ public class ShopActivity extends AppCompatActivity {
         }
         final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsingToolbarLayout);
         Glide.with(this).load(get.getStringExtra("img")).into(imageView);
-        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.main));
+        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.black_trans));
         collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(R.color.main));
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {

@@ -1,6 +1,8 @@
 package com.app.bookstylist.shop;
 
 
+import java.util.ArrayList;
+
 public class ShopModal {
     private Integer id;
     private String name, address, email, image, phone, desc;
