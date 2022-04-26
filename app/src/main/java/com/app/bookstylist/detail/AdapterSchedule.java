@@ -15,10 +15,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.bookstylist.R;
 import com.app.bookstylist.ShopActivity;
 import com.app.bookstylist.book.BookModal;
 import com.app.bookstylist.book.EditBookSchedule;
 import com.app.bookstylist.databinding.RowScheduleListBinding;
+import com.app.bookstylist.shop.PictureAdapter;
+import com.app.bookstylist.shop.Rates;
 import com.app.bookstylist.shop.ShopModal;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,61 +29,50 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.HolderSchedule> {
-    private Context context;
-    private ArrayList<ShopModal> shopArrayList;
-
     private ArrayList<BookModal> bookModals;
+    private Context context;
 
 
-    private RowScheduleListBinding binding;
-
-
-    //constructor
-
-
-    public AdapterSchedule(Context context, ArrayList<BookModal> bookModals) {
-        this.context = context;
+    public AdapterSchedule( ArrayList<BookModal> bookModals, Context context) {
         this.bookModals = bookModals;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public HolderSchedule onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = RowScheduleListBinding.inflate(LayoutInflater.from(context),parent,false);
 
-        return new HolderSchedule(binding.getRoot());
-
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule_list,parent,false);
+        return new HolderSchedule(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HolderSchedule holder, int position) {
+
         BookModal bookModal = bookModals.get(position);
-        ShopModal shopModal = null;
-        for(ShopModal a: shopArrayList){
-            if(a.getId()== Integer.valueOf(bookModal.getSid())){
-                shopModal = a;
-                return;
-            }
+        if (bookModal==null){return;
+
         }
-        Glide.with(context).load(shopModal.getImage()).into(holder.shopImage);
-        holder.titleTv.setText(shopModal.getName());
-        holder.service.setText(bookModal.getService());
-        holder.price.setText(bookModal.getPrice());
-        holder.status.setText(bookModal.getComplete());
+        Picasso.get().load(bookModals.get(position).getShopImg()).into(holder.shopImage);
+
+        holder.titleTv.setText(bookModal.getShopName());
         holder.date.setText(bookModal.getTime());
+        holder.status.setText(bookModal.getComplete());
+        holder.service.setText(bookModal.getService());
 
         holder.btnCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 removeFromSchedule(context,bookModal.getBid(),bookModal);
-
             }
         });
+
         holder.btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,14 +83,6 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
                 context.startActivity(intent);
             }
         });
-
-
-
-
-
-
-
-
     }
     public static void removeFromSchedule(Context context, String bid,BookModal bookModal){
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -120,39 +104,28 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
 
     @Override
     public int getItemCount() {
+        if (bookModals!=null) {
+            return bookModals.size() ;
+        }
         return 0;
     }
 
     //View holder
     class HolderSchedule extends RecyclerView.ViewHolder{
-        ProgressBar progressBar;
         TextView titleTv,service, price, status,date;
-
         Button btnChange, btnCancle;
         ImageView shopImage;
 
         public HolderSchedule(@NonNull View itemView) {
             super(itemView);
-
-
-            shopImage = binding.shopUrl;
-            titleTv = binding.titleTv;
-
-            service = binding.Service;
-            price = binding.price;
-            status = binding.Status;
-            status = binding.Date;
-
-            btnCancle = binding.Cancle;
-            btnChange = binding.changeBtn;
-
-
-
-
-
-
-
-
+            titleTv = itemView.findViewById(R.id.titleTv);
+            service = itemView.findViewById(R.id.Service);
+            price = itemView.findViewById(R.id.price);
+            status = itemView.findViewById(R.id.Status);
+            date = itemView.findViewById(R.id.Date);
+            shopImage = itemView.findViewById(R.id.shopUrl);
+            btnChange = itemView.findViewById(R.id.changeBtn);
+            btnCancle = itemView.findViewById(R.id.Cancle);
         }
     }
 }
