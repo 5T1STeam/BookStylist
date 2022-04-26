@@ -15,10 +15,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.bookstylist.R;
 import com.app.bookstylist.ShopActivity;
 import com.app.bookstylist.book.BookModal;
 import com.app.bookstylist.book.EditBookSchedule;
 import com.app.bookstylist.databinding.RowScheduleListBinding;
+import com.app.bookstylist.home.ShopAdapter;
 import com.app.bookstylist.shop.ShopModal;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,9 +37,10 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
     private ArrayList<ShopModal> shopArrayList;
 
     private ArrayList<BookModal> bookModals;
+    private FirebaseAuth firebaseAuth;
 
 
-    private RowScheduleListBinding binding;
+
 
 
     //constructor
@@ -51,9 +54,8 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
     @NonNull
     @Override
     public HolderSchedule onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = RowScheduleListBinding.inflate(LayoutInflater.from(context),parent,false);
-
-        return new HolderSchedule(binding.getRoot());
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule_list,parent,false);
+        return new HolderSchedule(view);
 
     }
 
@@ -61,8 +63,10 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
     public void onBindViewHolder(@NonNull HolderSchedule holder, int position) {
         BookModal bookModal = bookModals.get(position);
         ShopModal shopModal = null;
+        firebaseAuth =FirebaseAuth.getInstance();
+
         for(ShopModal a: shopArrayList){
-            if(a.getId()== Integer.valueOf(bookModal.getSid())){
+            if(a.getId()== Integer.valueOf(bookModal.getSid()) &&bookModal.getUid() == firebaseAuth.getUid()){
                 shopModal = a;
                 return;
             }
@@ -120,7 +124,13 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
 
     @Override
     public int getItemCount() {
-        return 0;
+        if(bookModals !=null){
+            return bookModals.size();
+        }
+        else{
+            return 0;
+        }
+
     }
 
     //View holder
@@ -135,16 +145,15 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
             super(itemView);
 
 
-            shopImage = binding.shopUrl;
-            titleTv = binding.titleTv;
+            shopImage = itemView.findViewById(R.id.shopUrl);
+            titleTv = itemView.findViewById(R.id.titleTv);
+            service = itemView.findViewById(R.id.Service);
+            status = itemView.findViewById(R.id.Status);
+            price = itemView.findViewById(R.id.price);
 
-            service = binding.Service;
-            price = binding.price;
-            status = binding.Status;
-            status = binding.Date;
 
-            btnCancle = binding.Cancle;
-            btnChange = binding.changeBtn;
+            btnCancle = itemView.findViewById(R.id.Cancle);
+            btnChange = itemView.findViewById(R.id.changeBtn);
 
 
 
