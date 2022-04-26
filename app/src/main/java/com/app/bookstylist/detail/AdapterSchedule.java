@@ -39,6 +39,8 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
     private ArrayList<BookModal> bookModals;
     private FirebaseAuth firebaseAuth;
 
+    private RowScheduleListBinding binding;
+
 
 
 
@@ -54,15 +56,18 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
     @NonNull
     @Override
     public HolderSchedule onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule_list,parent,false);
-        return new HolderSchedule(view);
+//        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule_list,parent,false);
+//        return new HolderSchedule(view);
+        binding = RowScheduleListBinding.inflate(LayoutInflater.from(context),parent,false);
+
+        return new HolderSchedule(binding.getRoot());
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull HolderSchedule holder, int position) {
         BookModal bookModal = bookModals.get(position);
-        ShopModal shopModal = null;
+        ShopModal shopModal = new ShopModal();
         firebaseAuth =FirebaseAuth.getInstance();
 
         for(ShopModal a: shopArrayList){
@@ -145,15 +150,25 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
             super(itemView);
 
 
-            shopImage = itemView.findViewById(R.id.shopUrl);
-            titleTv = itemView.findViewById(R.id.titleTv);
-            service = itemView.findViewById(R.id.Service);
-            status = itemView.findViewById(R.id.Status);
-            price = itemView.findViewById(R.id.price);
+//            shopImage = itemView.findViewById(R.id.shopUrl);
+//            titleTv = itemView.findViewById(R.id.titleTv);
+//            service = itemView.findViewById(R.id.Service);
+//            status = itemView.findViewById(R.id.Status);
+//            price = itemView.findViewById(R.id.price);
+//
+//
+//            btnCancle = itemView.findViewById(R.id.Cancle);
+//            btnChange = itemView.findViewById(R.id.changeBtn);
+            shopImage = binding.shopUrl;
+            titleTv = binding.titleTv;
 
+            service = binding.Service;
+            price = binding.price;
+            status = binding.Status;
+            status = binding.Date;
 
-            btnCancle = itemView.findViewById(R.id.Cancle);
-            btnChange = itemView.findViewById(R.id.changeBtn);
+            btnCancle = binding.Cancle;
+            btnChange = binding.changeBtn;
 
 
 
