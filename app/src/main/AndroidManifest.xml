@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".book.EditBookSchedule"
+            android:exported="false" />
+        <activity
+            android:name=".Schedule"
+            android:exported="false" />
+        <activity
             android:name=".detail.FavoriteActivity"
             android:exported="false" />
         <activity

@@ -108,6 +108,13 @@ public class DashboardUserActivity extends AppCompatActivity {
                 return false;
             }
         });
+        binding.bottomNavi.getMenu().getItem(2).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                startActivity(new Intent(DashboardUserActivity.this, Schedule.class));
+                return false;
+            }
+        });
         binding.bottomNavi.getMenu().getItem(3).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
