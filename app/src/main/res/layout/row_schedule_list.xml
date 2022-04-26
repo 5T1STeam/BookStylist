@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    app:cardCornerRadius="5dp"
+    android:elevation="0dp"
+    android:padding="5dp"
+    android:layout_marginBottom="10dp"
+    tools:context=".Schedule">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/shopUrl"
+            android:layout_width="100dp"
+            android:layout_height="190dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/black">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/titleTv"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@+id/shopUrl"
+            android:maxLines="1"
+            android:text="Shop Name" />
+
+
+        <TextView
+            android:id="@+id/Service"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleTv"
+            android:layout_toEndOf="@+id/shopUrl"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:padding="5dp"
+            android:text="Service" />
+
+        <TextView
+            android:id="@id/Date"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Service"
+            android:layout_toEndOf="@id/shopUrl"
+            android:maxLines="2"
+            android:padding="5dp"
+            android:text="Date" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:padding="5dp"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:id="@+id/price"
+            android:layout_toEndOf="@id/shopUrl"
+            android:layout_below="@id/Date"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:padding="5dp"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:id="@+id/Status"
+            android:layout_toEndOf="@id/shopUrl"
+            android:layout_below="@id/price"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/Status"
+        android:layout_toEndOf="@id/shopUrl">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/changeBtn"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/price"
+            android:layout_marginRight="20dp"
+            android:layout_toEndOf="@id/shopUrl"
+            android:backgroundTint="@color/main"
+            android:padding="10dp"
+            android:text="Change"
+            app:cornerRadius="10dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/Cancle"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Date"
+            android:layout_toEndOf="@id/changeBtn"
+            android:backgroundTint="@color/main"
+            android:padding="10dp"
+            android:text="Cancle"
+            app:cornerRadius="10dp" />
+    </LinearLayout>
+
+
+
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
