@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -53,6 +54,14 @@ public class Schedule extends AppCompatActivity {
         listSchedule.setLayoutManager(flexboxLayoutManager);
         listSchedule.setAdapter(adapterSchedule);
         getlistBook();
+
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Schedule.this,DashboardUserActivity.class));
+
+            }
+        });
     }
 
     private void getlistBook() {

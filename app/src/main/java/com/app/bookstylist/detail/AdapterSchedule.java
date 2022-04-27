@@ -65,6 +65,17 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
         holder.date.setText(bookModal.getTime());
         holder.status.setText(bookModal.getComplete());
         holder.service.setText(bookModal.getService());
+        holder.price.setText(bookModal.getPrice().toString());
+        if(bookModal.getComplete().equals("Confirm") ){
+            holder.btnChange.setVisibility(View.GONE);
+            holder.btnCancle.setVisibility(View.GONE);
+
+
+
+
+
+
+        }
 
         holder.btnCancle.setOnClickListener(new View.OnClickListener() {
             @Override
