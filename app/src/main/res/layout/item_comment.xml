@@ -69,6 +69,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Dịch vụ tốt"/>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_comment"
+            android:layout_marginTop="10dp"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg"
+            android:clickable="true"
+            app:shapeAppearanceOverlay="@style/radi"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -44,7 +44,7 @@ public class Rates {
     private int shopid;
     private String userid;
     private String desc;
-    private String img;
+    private String img = "";
     private int rate;
     private String name;
     private String profileImage;

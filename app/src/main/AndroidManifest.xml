@@ -18,6 +18,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".FullPicActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:label="@string/title_activity_full_pic"
+            android:theme="@style/Theme.BookStylist.Fullscreen" />
+        <activity
             android:name=".book.EditBookSchedule"
             android:exported="false" />
         <activity
