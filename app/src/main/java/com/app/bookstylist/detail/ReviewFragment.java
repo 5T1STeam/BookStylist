@@ -154,7 +154,7 @@ public class ReviewFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         commentList = new ArrayList<>();
         ratesList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(commentList);
+        commentAdapter = new CommentAdapter(commentList, getActivity());
         recyclerView.setAdapter(commentAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         ratingNum =view.findViewById(R.id.ratingNum);

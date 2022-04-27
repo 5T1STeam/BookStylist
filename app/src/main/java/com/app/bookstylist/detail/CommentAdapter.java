@@ -1,5 +1,6 @@
 package com.app.bookstylist.detail;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
@@ -14,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.bookstylist.BookActivity;
+import com.app.bookstylist.FullPicActivity;
 import com.app.bookstylist.R;
+import com.app.bookstylist.ShopActivity;
 import com.app.bookstylist.shop.Rates;
 import com.app.bookstylist.shop.Service;
 import com.squareup.picasso.Picasso;
@@ -24,9 +27,11 @@ import java.util.List;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
 
     private List<Rates> ratesList;
+    private Context context;
 
-    public CommentAdapter(List<Rates> ratesList) {
+    public CommentAdapter(List<Rates> ratesList, Context context) {
         this.ratesList = ratesList;
+        this.context = context;
     }
 
     public CommentAdapter() {
@@ -48,7 +53,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         viewHolder.tv_content.setText(rates.getDesc());
         viewHolder.ratingBar.setRating(rates.getRate());
         Picasso.get().load(ratesList.get(position).getProfileImage()).into(viewHolder.avatar);
-        int a = 4;
+        Picasso.get().load(ratesList.get(position).getImg()).into(viewHolder.img_cmt);
+        viewHolder.img_cmt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, FullPicActivity.class);
+                intent.putExtra("img",ratesList.get(position).getImg());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -64,6 +78,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         private TextView tv_name, tv_date, tv_content;
         private ImageView avatar;
         private RatingBar ratingBar;
+        private ImageView img_cmt;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +87,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             tv_content = itemView.findViewById(R.id.tv_user_content_comment);
             avatar = itemView.findViewById(R.id.img_user_comment);
             ratingBar = itemView.findViewById(R.id.ratingBar_user_comment);
+            img_cmt = itemView.findViewById(R.id.img_comment);
         }
     }
 }
