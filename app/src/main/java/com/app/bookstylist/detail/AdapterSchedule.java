@@ -21,6 +21,8 @@ import com.app.bookstylist.book.BookModal;
 import com.app.bookstylist.book.EditBookSchedule;
 import com.app.bookstylist.databinding.RowScheduleListBinding;
 import com.app.bookstylist.home.ShopAdapter;
+import com.app.bookstylist.shop.PictureAdapter;
+import com.app.bookstylist.shop.Rates;
 import com.app.bookstylist.shop.ShopModal;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,68 +30,61 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.HolderSchedule> {
-    private Context context;
-    private ArrayList<ShopModal> shopArrayList;
-
     private ArrayList<BookModal> bookModals;
-    private FirebaseAuth firebaseAuth;
-
-    private RowScheduleListBinding binding;
+    private Context context;
 
 
-
-
-
-    //constructor
-
-
-    public AdapterSchedule(Context context, ArrayList<BookModal> bookModals) {
-        this.context = context;
+    public AdapterSchedule( ArrayList<BookModal> bookModals, Context context) {
         this.bookModals = bookModals;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public HolderSchedule onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule_list,parent,false);
-//        return new HolderSchedule(view);
-        binding = RowScheduleListBinding.inflate(LayoutInflater.from(context),parent,false);
 
-        return new HolderSchedule(binding.getRoot());
-
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_schedule_list,parent,false);
+        return new HolderSchedule(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HolderSchedule holder, int position) {
-        BookModal bookModal = bookModals.get(position);
-        ShopModal shopModal = new ShopModal();
-        firebaseAuth =FirebaseAuth.getInstance();
 
-        for(ShopModal a: shopArrayList){
-            if(a.getId()== Integer.valueOf(bookModal.getSid()) &&bookModal.getUid() == firebaseAuth.getUid()){
-                shopModal = a;
-                return;
-            }
+        BookModal bookModal = bookModals.get(position);
+        if (bookModal==null){return;
+
         }
-        Glide.with(context).load(shopModal.getImage()).into(holder.shopImage);
-        holder.titleTv.setText(shopModal.getName());
-        holder.service.setText(bookModal.getService());
-        holder.price.setText(bookModal.getPrice());
-        holder.status.setText(bookModal.getComplete());
+        Picasso.get().load(bookModals.get(position).getShopImg()).into(holder.shopImage);
+
+        holder.titleTv.setText(bookModal.getShopName());
         holder.date.setText(bookModal.getTime());
+        holder.status.setText(bookModal.getComplete());
+        holder.service.setText(bookModal.getService());
+        holder.price.setText(bookModal.getPrice().toString());
+        if(bookModal.getComplete().equals("Confirm") ){
+            holder.btnChange.setVisibility(View.GONE);
+            holder.btnCancle.setVisibility(View.GONE);
+
+
+
+
+
+
+        }
 
         holder.btnCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 removeFromSchedule(context,bookModal.getBid(),bookModal);
-
             }
         });
+
         holder.btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,14 +95,6 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
                 context.startActivity(intent);
             }
         });
-
-
-
-
-
-
-
-
     }
     public static void removeFromSchedule(Context context, String bid,BookModal bookModal){
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -129,54 +116,28 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
 
     @Override
     public int getItemCount() {
-        if(bookModals !=null){
-            return bookModals.size();
+        if (bookModals!=null) {
+            return bookModals.size() ;
         }
-        else{
-            return 0;
-        }
-
+        return 0;
     }
 
     //View holder
     class HolderSchedule extends RecyclerView.ViewHolder{
-        ProgressBar progressBar;
         TextView titleTv,service, price, status,date;
-
         Button btnChange, btnCancle;
         ImageView shopImage;
 
         public HolderSchedule(@NonNull View itemView) {
             super(itemView);
-
-
-//            shopImage = itemView.findViewById(R.id.shopUrl);
-//            titleTv = itemView.findViewById(R.id.titleTv);
-//            service = itemView.findViewById(R.id.Service);
-//            status = itemView.findViewById(R.id.Status);
-//            price = itemView.findViewById(R.id.price);
-//
-//
-//            btnCancle = itemView.findViewById(R.id.Cancle);
-//            btnChange = itemView.findViewById(R.id.changeBtn);
-            shopImage = binding.shopUrl;
-            titleTv = binding.titleTv;
-
-            service = binding.Service;
-            price = binding.price;
-            status = binding.Status;
-            status = binding.Date;
-
-            btnCancle = binding.Cancle;
-            btnChange = binding.changeBtn;
-
-
-
-
-
-
-
-
+            titleTv = itemView.findViewById(R.id.titleTv);
+            service = itemView.findViewById(R.id.Service);
+            price = itemView.findViewById(R.id.price);
+            status = itemView.findViewById(R.id.Status);
+            date = itemView.findViewById(R.id.Date);
+            shopImage = itemView.findViewById(R.id.shopUrl);
+            btnChange = itemView.findViewById(R.id.changeBtn);
+            btnCancle = itemView.findViewById(R.id.Cancle);
         }
     }
 }

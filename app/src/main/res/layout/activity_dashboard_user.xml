@@ -5,11 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DashboardUserActivity">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:id="@+id/btnLogout"/>
 
 
 
@@ -31,10 +26,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_marginTop="30dp"
                     android:id="@+id/imageView3"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
+                    android:layout_marginTop="30dp"
                     app:srcCompat="@drawable/logo" />
 
                 <EditText
@@ -49,15 +44,15 @@
                     android:background="@drawable/input_bg"
                     android:drawableLeft="@drawable/ic_baseline_search_24"
                     android:drawablePadding="10dp"
+                    android:editable="false"
+                    android:focusableInTouchMode="false"
                     android:hint="Bạn muốn tìm kiếm gì?"
                     android:padding="7dp"
                     android:textColor="#FFFFFF"
                     android:textColorHint="#FFFFFF"
                     android:textSize="14dp"
                     tools:ignore="TouchTargetSizeCheck"
-                    tools:layout_below="@id/imageView3"
-                    android:focusableInTouchMode="false"
-                    android:editable="false"/>
+                    tools:layout_below="@id/imageView3" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvService"
