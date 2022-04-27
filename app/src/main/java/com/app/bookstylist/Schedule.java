@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.app.bookstylist.book.BookModal;
 import com.app.bookstylist.databinding.ActivityScheduleBinding;
+import com.app.bookstylist.databinding.ActivityShopBinding;
 import com.app.bookstylist.detail.AdapterSchedule;
 import com.app.bookstylist.shop.ShopModal;
 import com.google.android.flexbox.AlignItems;
@@ -40,14 +43,11 @@ public class Schedule extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityScheduleBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         firebaseAuth = FirebaseAuth.getInstance();
         bookModalArrayList =new ArrayList<>();
-        adapterSchedule = new AdapterSchedule(Schedule.this,bookModalArrayList);
+        adapterSchedule = new AdapterSchedule(bookModalArrayList, Schedule.this);
 
         listSchedule = findViewById(R.id.listSChedule);
-//        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(Schedule.this, LinearLayoutManager.HORIZONTAL, false);
-//        binding.listSChedule.setLayoutManager(horizontalLayoutManagaer);
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(this);
         flexboxLayoutManager.setAlignItems(AlignItems.CENTER);
 
@@ -55,22 +55,42 @@ public class Schedule extends AppCompatActivity {
         listSchedule.setAdapter(adapterSchedule);
         getlistBook();
 
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Schedule.this,DashboardUserActivity.class));
 
+            }
+        });
     }
 
     private void getlistBook() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Books");
 
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.orderByChild("uid").equalTo(firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 bookModalArrayList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     BookModal bookModal = dataSnapshot.getValue(BookModal.class);
                     bookModalArrayList.add(bookModal);
-
                 }
-                adapterSchedule.notifyDataSetChanged();
+                for (BookModal item: bookModalArrayList) {
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Shop/"+item.getSid());
+                    ref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            item.setShopName(snapshot.child("name").getValue().toString());
+                            item.setShopImg(snapshot.child("image").getValue().toString());
+                            adapterSchedule.notifyDataSetChanged();
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+
             }
 
             @Override

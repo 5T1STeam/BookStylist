@@ -132,7 +132,7 @@
                 android:paddingTop="30dp"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_location_black"
-                android:background="@drawable/input_bg"
+                android:drawableLeft="@drawable/profile_user_shapebelow"
                 android:drawablePadding="10dp"
                 android:text="Address" />
 

@@ -18,6 +18,7 @@ import com.app.bookstylist.detail.FavoriteActivity;
 import com.bumptech.glide.Glide;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,6 +59,13 @@ public class ProfileMenuActivity extends AppCompatActivity {
                 finish();
             }
         });
+        binding.logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAuth.signOut();
+                checkUser();
+            }
+        });
 
 
     }
@@ -95,6 +103,15 @@ public class ProfileMenuActivity extends AppCompatActivity {
         });
 
 
+
+    }
+    private void checkUser() {
+        FirebaseUser firebaseUser= firebaseAuth.getCurrentUser();
+        if(firebaseUser==null){
+            startActivity(new Intent(ProfileMenuActivity.this,MainActivity.class));
+            finish();
+
+        }
 
     }
 

@@ -8,6 +8,8 @@ public class BookModal {
     private String time;
     private String uid;
     private String bid;
+    private String shopName;
+    private String shopImg;
     public BookModal(){
 
     }
@@ -78,4 +80,19 @@ public class BookModal {
         this.uid = uid;
     }
 
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getShopImg() {
+        return shopImg;
+    }
+
+    public void setShopImg(String shopImg) {
+        this.shopImg = shopImg;
+    }
 }
