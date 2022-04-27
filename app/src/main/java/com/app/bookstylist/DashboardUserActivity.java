@@ -56,14 +56,6 @@ public class DashboardUserActivity extends AppCompatActivity {
         //Check user
         firebaseAuth = FirebaseAuth.getInstance();
         checkUser();
-
-        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firebaseAuth.signOut();
-                checkUser();
-            }
-        });
         //
 
         rcvShop= findViewById(R.id.rcvShop);

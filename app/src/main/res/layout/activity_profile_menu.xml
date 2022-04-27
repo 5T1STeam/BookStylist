@@ -108,7 +108,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
-                            android:text="Ho so cua ban"
+                            android:text="Hồ sơ của bạn"
                             android:textColor="#000000"
                             android:textSize="18sp"
                             android:textStyle="bold"
@@ -143,7 +143,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
-                            android:text="Cua hang yeu thich"
+                            android:text="Cửa hàng yêu thích"
                             android:textColor="#000000"
                             android:textSize="18sp"
                             android:textStyle="bold"
@@ -152,73 +152,6 @@
                             app:layout_constraintTop_toTopOf="@+id/btnProfile2" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:background="@drawable/background_btn_white"
-                        android:elevation="3dp">
-
-                        <ImageView
-                            android:id="@+id/btnProfile3"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_schedule" />
-
-                        <TextView
-                            android:id="@+id/inputProfile3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:text="Lich hen"
-                            android:textColor="#000000"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@+id/btnProfile3"
-                            app:layout_constraintStart_toEndOf="@+id/btnProfile3"
-                            app:layout_constraintTop_toTopOf="@+id/btnProfile3" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:background="@drawable/background_btn_white"
-                        android:elevation="3dp">
-
-                        <ImageView
-                            android:id="@+id/btnProfile4"
-                            android:layout_width="35dp"
-                            android:layout_height="38dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_story" />
-
-                        <TextView
-                            android:id="@+id/inputProfile4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:text="Lich su"
-                            android:textColor="#000000"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@+id/btnProfile4"
-                            app:layout_constraintStart_toEndOf="@+id/btnProfile4"
-                            app:layout_constraintTop_toTopOf="@+id/btnProfile4" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/logoutBtn"
@@ -246,7 +179,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
-                            android:text="Dang xuat"
+                            android:text="Đăng xuất"
                             android:textColor="#000000"
                             android:textSize="18sp"
                             android:textStyle="bold"
