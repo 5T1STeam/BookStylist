@@ -10,6 +10,26 @@ public class BookModal {
     private String bid;
     private String shopName;
     private String shopImg;
+    private String address;
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    private String rating;
+    private String comment;
     public BookModal(){
 
     }
@@ -94,5 +114,13 @@ public class BookModal {
 
     public void setShopImg(String shopImg) {
         this.shopImg = shopImg;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

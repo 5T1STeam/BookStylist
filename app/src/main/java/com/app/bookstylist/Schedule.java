@@ -82,6 +82,9 @@ public class Schedule extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             item.setShopName(snapshot.child("name").getValue().toString());
                             item.setShopImg(snapshot.child("image").getValue().toString());
+                            item.setRating(snapshot.child("rating").getValue().toString());
+                            item.setComment(snapshot.child("comment").getValue().toString());
+                            item.setAddress(snapshot.child("address").getValue().toString());
                             adapterSchedule.notifyDataSetChanged();
                         }
                         @Override
