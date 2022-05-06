@@ -1,11 +1,15 @@
 package com.app.bookstylist.detail;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.bookstylist.ProfileMenuActivity;
 import com.app.bookstylist.R;
 import com.app.bookstylist.databinding.ActivityFavoriteBinding;
 import com.app.bookstylist.shop.FavoriteShop;
@@ -41,6 +45,12 @@ public class FavoriteActivity extends AppCompatActivity {
         //Take UID
         firebaseAuth = FirebaseAuth.getInstance();
 
+        binding.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FavoriteActivity.this, ProfileMenuActivity.class));
+            }
+        });
         shopModals = new ArrayList<>();
         shopAdapter = new ShopAdapter(shopModals, this.getApplicationContext());
         yourFavorite = findViewById(R.id.yourFavorite);
@@ -48,10 +58,10 @@ public class FavoriteActivity extends AppCompatActivity {
         flexboxLayoutManager.setAlignItems(AlignItems.CENTER);
 
         yourFavorite.setLayoutManager(flexboxLayoutManager);
-
-
-        getListShops();
         yourFavorite.setAdapter(shopAdapter);
+        (new Handler()).postDelayed(this::getListShops,1000);
+
+
 
     }
     private void getListShops() {
@@ -90,6 +100,7 @@ public class FavoriteActivity extends AppCompatActivity {
                         }
                     }
                     shopAdapter.notifyDataSetChanged();
+
                 };
 
             }
