@@ -103,7 +103,7 @@ public class BookActivity extends AppCompatActivity {
         adapter = new ServiceAdapter(listService, this, new IClickServiceBook() {
             @Override
             public void onClickTimeListener(Service service) {
-                adđBilling(service);
+                addBilling(service);
             }
         });
         rcvService.setAdapter(adapter);
@@ -141,7 +141,6 @@ public class BookActivity extends AppCompatActivity {
                 }else{
                     materialTimePicker.show(getSupportFragmentManager(), "Time Pick");
                 }
-
             }
         });
 
@@ -295,9 +294,7 @@ public class BookActivity extends AppCompatActivity {
 
     }
 
-
-
-    private void adđBilling(Service service) {
+    private void addBilling(Service service) {
         if(service.isChecked()){
             totalBill = totalBill + service.getPrice();
         }else {

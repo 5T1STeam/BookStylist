@@ -76,7 +76,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
         return 0;
     }
 
-
     public class ShopViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView imgShop;

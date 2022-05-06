@@ -70,7 +70,6 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         private ImageView Image;
 
 
-
         public ServiceViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNameService=itemView.findViewById(R.id.nameService);
