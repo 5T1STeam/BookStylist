@@ -94,7 +94,8 @@ public class LoginActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
+                progressDialog.setMessage("Thông tin đăng nhập không chính xác");
+                progressDialog.show();
             }
         });
     }

@@ -42,25 +42,28 @@ public class SearchActivity extends AppCompatActivity {
         searchShop = findViewById(R.id.search_shop);
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(this);
         flexboxLayoutManager.setAlignItems(AlignItems.CENTER);
-
         serParent = findViewById(R.id.serParent);
         searchShop.setLayoutManager(flexboxLayoutManager);
         shopModals = new ArrayList<>();
         shopAdapter = new ShopAdapter(shopModals, getApplicationContext());
         searchView  = findViewById(R.id.search_view);
         Intent intent = getIntent();
+
+        getListShops(serviceParent);
+        searchShop.setAdapter(shopAdapter);
+
         if(intent.getStringExtra("Service Parent")==null){
             //show bàn phím
             searchView.onActionViewExpanded();
             serParent.setVisibility(View.GONE);
 
         }else{
+            //không show bàn phím click vào danh mục
             serviceParent = intent.getStringExtra("Service Parent");
             serviceShop = new ArrayList<>();
             serParent.setText("Dịch vụ: "+serviceParent);
             serParent.setVisibility(View.VISIBLE);
         }
-
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -76,8 +79,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        getListShops(serviceParent);
-        searchShop.setAdapter(shopAdapter);
 
     }
 
@@ -124,8 +125,6 @@ public class SearchActivity extends AppCompatActivity {
 
                }
            });
-
-
         }else {
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override

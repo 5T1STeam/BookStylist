@@ -192,7 +192,6 @@ public class DashboardUserActivity extends AppCompatActivity {
         if(firebaseUser==null){
             startActivity(new Intent(DashboardUserActivity.this,MainActivity.class));
             finish();
-
         }
 
     }
