@@ -10,7 +10,7 @@
         android:id="@+id/toolbarRl"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@drawable/shape_toolbar">
+        android:background="@drawable/btn_background_main">
 
         <ImageButton
             android:id="@id/btnBack"
@@ -25,16 +25,17 @@
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:padding="5dp"
-            android:src="@drawable/ic_back_main" />
+            android:src="@drawable/ic_back_white" />
+
         <TextView
             android:id="@+id/titleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit profile"
-            android:layout_marginTop="18dp"
             android:layout_centerHorizontal="true"
-            android:textSize="26sp"
-            android:textColor="@color/white"/>
+            android:layout_marginTop="18dp"
+            android:text="Edit profile"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/editImageProfile"
@@ -47,8 +48,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_person_black"
             app:shapeAppearance="@style/styleRoundedCornerImage" />
-
-
 
 
     </RelativeLayout>

@@ -114,6 +114,7 @@ public class ProfileUserActivity extends AppCompatActivity {
                 binding.getName.setText(name);
                 binding.inputEmail.setText(email);
                 binding.inputAddress.setText(address);
+                binding.inputName.setText(name);
 
                 //Xu li profileImage
                 Glide.with(ProfileUserActivity.this).load(profileImage)
