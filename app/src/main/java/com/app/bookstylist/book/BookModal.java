@@ -123,4 +123,5 @@ public class BookModal {
     public void setAddress(String address) {
         this.address = address;
     }
+
 }

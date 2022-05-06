@@ -44,7 +44,9 @@ public class PictureFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot unit : snapshot.getChildren()){
-                    ratesList.add( unit.getValue(Rates.class));
+                    if(unit.child("img").getValue() != ""){
+                        ratesList.add( unit.getValue(Rates.class));
+                    }
                 }
                 pictureAdapter.notifyDataSetChanged();
             }

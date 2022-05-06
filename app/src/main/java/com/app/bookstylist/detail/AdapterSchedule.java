@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.bookstylist.FeedbackActivity;
 import com.app.bookstylist.R;
 import com.app.bookstylist.ShopActivity;
 import com.app.bookstylist.book.BookModal;
@@ -67,16 +68,16 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
         holder.status.setText(bookModal.getComplete());
         holder.service.setText(bookModal.getService());
         holder.price.setText(bookModal.getPrice().toString());
-        if(bookModal.getComplete().equals("Confirm") ){
+        if(bookModal.getComplete().equals("Hoàn thành") ){
             holder.btnChange.setVisibility(View.VISIBLE);
-            holder.btnChange.setText("Đặt lại");
             holder.btnCancle.setVisibility(View.GONE);
-
-
-
-
-
-
+            holder.btnRating.setVisibility(View.VISIBLE);
+        }
+        if(bookModal.getComplete().equals("Đã đánh giá")){
+            holder.btnChange.setVisibility(View.VISIBLE);
+            holder.btnCancle.setVisibility(View.GONE);
+            holder.btnRating.setVisibility(View.GONE);
+            holder.tvRated.setVisibility(View.VISIBLE);
         }
 
         holder.btnCancle.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +97,21 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
                 intent.putExtra("img",bookModal.getShopImg());
                 intent.putExtra("rate",String.valueOf(bookModal.getRating()));
                 intent.putExtra("comment",String.valueOf(bookModal.getComment()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
+
+        holder.btnRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, FeedbackActivity.class);
+                intent.putExtra("shopName",bookModal.getShopName());
+                intent.putExtra("shopId",String.valueOf(bookModal.getSid()));
+                intent.putExtra("shopImg",bookModal.getShopImg());
+                intent.putExtra("rate",String.valueOf(bookModal.getRating()));
+                intent.putExtra("comment",String.valueOf(bookModal.getComment()));
+                intent.putExtra("bookId",bookModal.getBid());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
@@ -129,8 +145,8 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
 
     //View holder
     class HolderSchedule extends RecyclerView.ViewHolder{
-        TextView titleTv,service, price, status,date;
-        Button btnChange, btnCancle;
+        TextView titleTv,service, price, status,date, tvRated;
+        Button btnChange, btnCancle, btnRating;
         ImageView shopImage;
 
         public HolderSchedule(@NonNull View itemView) {
@@ -143,6 +159,8 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
             shopImage = itemView.findViewById(R.id.shopUrl);
             btnChange = itemView.findViewById(R.id.changeBtn);
             btnCancle = itemView.findViewById(R.id.Cancle);
+            btnRating = itemView.findViewById(R.id.Rating);
+            tvRated = itemView.findViewById(R.id.tv_rated);
         }
     }
 }

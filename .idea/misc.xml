@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/drawable/frame.xml" value="0.1715" />
         <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/activity_dashboard_user.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/activity_favorite.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/activity_feedback.xml" value="0.264" />
         <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/activity_forgot_password.xml" value="0.16077898550724637" />
         <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/activity_full_pic.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/activity_profile_menu.xml" value="0.25416666666666665" />
@@ -14,11 +16,13 @@
         <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/fragment_picture.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/fragment_review.xml" value="0.264" />
         <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/fragment_service.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/item_comment.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/item_img_card.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/item_service.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/item_service_detail.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/item_shop.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/AnhTuan/Desktop/BookStylist/app/src/main/res/layout/row_schedule_list.xml" value="0.2" />
         <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/drawable-ldpi/scrim_topdown.xml" value="0.1715" />
         <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/drawable/scrim.xml" value="0.1715" />
         <entry key="..\:/Users/AnhTuan/Desktop/Bookstylist/app/src/main/res/layout/activity_book.xml" value="0.22826086956521738" />

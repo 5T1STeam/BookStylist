@@ -100,17 +100,20 @@ public class DetailFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 tv_dsc.setText(snapshot.child("desc").getValue().toString());
                 tv_phone.setText(snapshot.child("phone").getValue().toString());
-                String path;
-                for (int i =0; i<14; i++){
-                    if(i<7){
-                        path = (i+2)+"O";
-                    }
-                    else {
-                        path = (i-5)+"C";
-                    }
-                    String value = snapshot.child("calendar").child(path).getValue().toString();
+                if(snapshot.child("calendar").exists()){
+                    String path;
+                    for (int i =0; i<14; i++){
+                        if(i<7){
+                            path = (i+2)+"O";
+                        }
+                        else {
+                            path = (i-5)+"C";
+                        }
+                        String value = snapshot.child("calendar").child(path).getValue().toString();
                         textViews[i].setText(value);
+                    }
                 }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

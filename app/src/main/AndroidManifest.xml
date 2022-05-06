@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".FeedbackActivity"
+            android:exported="false" />
+        <activity
             android:name=".FullPicActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
