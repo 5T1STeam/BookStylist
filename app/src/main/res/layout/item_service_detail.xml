@@ -59,7 +59,8 @@
             android:backgroundTint="@color/main"
             android:layout_marginStart="20dp"
             android:text="Book"
-            android:textSize="15sp"
+            android:maxLines="1"
+            android:textSize="10sp"
             app:cornerRadius="@dimen/browser_actions_context_menu_max_width"/>
 
     </LinearLayout>

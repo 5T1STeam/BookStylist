@@ -58,24 +58,23 @@
                         android:textColor="#FFFFFF" />
                 </LinearLayout>
 
-                <GridLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/banner"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginTop="-3dp"
-                    android:columnCount="2"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                     <LinearLayout
                         android:id="@+id/header"
-                        android:layout_width="200dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_column="0"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="0dp"
+                        android:layout_weight="1.2"
                         android:orientation="vertical">
 
                         <TextView
@@ -98,15 +97,17 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_gravity="right"
-                        android:layout_margin="15dp">
+                        android:layout_gravity="center"
+                        android:layout_weight="0.8"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:id="@+id/btnFavor"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/app_name"
                             android:outlineProvider="none"
@@ -115,27 +116,22 @@
                             app:borderWidth="0dp"
                             app:fabSize="normal"
                             app:layout_anchor="@id/collapsingToolbarLayout"
-                            app:layout_anchorGravity="center|end"
-                            tools:layout_editor_absoluteX="354dp"
-                            tools:layout_editor_absoluteY="3dp" />
+                            app:layout_anchorGravity="center|end"/>
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnBook"
-                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="center|end"
                             android:backgroundTint="@color/main"
-
                             android:text="Book"
-                            android:textSize="17sp"
+                            android:textSize="10sp"
+                            android:maxLines="1"
                             android:visibility="visible"
-                            app:cornerRadius="@dimen/browser_actions_context_menu_max_width"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintVertical_bias="0.387"
-                            tools:ignore="MissingConstraints" />
+                            app:cornerRadius="@dimen/browser_actions_context_menu_max_width" />
                     </LinearLayout>
-                </GridLayout>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"

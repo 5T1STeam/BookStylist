@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="190dp"
+    android:layout_height="200dp"
     app:cardCornerRadius="5dp"
     android:elevation="0dp"
     android:padding="5dp"
@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/shopUrl"
             android:layout_width="100dp"
-            android:layout_height="190dp"
+            android:layout_height="200dp"
             android:layout_marginEnd="5dp"
             android:background="@color/black"
             android:scaleType="centerCrop">
@@ -89,9 +89,10 @@
             android:layout_below="@+id/price"
             android:layout_marginRight="20dp"
             android:layout_toEndOf="@id/shopUrl"
-            android:backgroundTint="@color/main"
+            android:backgroundTint="#3F51B5"
             android:padding="10dp"
             android:text="Change"
+            android:visibility="gone"
             app:cornerRadius="10dp" />
 
         <com.google.android.material.button.MaterialButton

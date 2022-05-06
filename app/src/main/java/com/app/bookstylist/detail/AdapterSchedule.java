@@ -68,7 +68,8 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
         holder.service.setText(bookModal.getService());
         holder.price.setText(bookModal.getPrice().toString());
         if(bookModal.getComplete().equals("Confirm") ){
-            holder.btnChange.setVisibility(View.GONE);
+            holder.btnChange.setVisibility(View.VISIBLE);
+            holder.btnChange.setText("Đặt lại");
             holder.btnCancle.setVisibility(View.GONE);
 
 
@@ -88,9 +89,13 @@ public class AdapterSchedule extends RecyclerView.Adapter<AdapterSchedule.Holder
         holder.btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, EditBookSchedule.class);
-                intent.putExtra("bId",bookModal.getBid());
-                intent.putExtra("time",bookModal.getTime());
+                Intent intent = new Intent(context, ShopActivity.class);
+                intent.putExtra("name",bookModal.getShopName());
+                intent.putExtra("address", bookModal.getAddress());
+                intent.putExtra("id",String.valueOf(bookModal.getSid()));
+                intent.putExtra("img",bookModal.getShopImg());
+                intent.putExtra("rate",String.valueOf(bookModal.getRating()));
+                intent.putExtra("comment",String.valueOf(bookModal.getComment()));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
