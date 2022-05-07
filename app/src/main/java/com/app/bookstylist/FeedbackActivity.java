@@ -1,5 +1,17 @@
 package com.app.bookstylist;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -9,27 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.Activity;
-import android.content.ContentValues;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.app.bookstylist.book.BookModal;
 import com.app.bookstylist.databinding.ActivityFeedbackBinding;
-import com.app.bookstylist.databinding.ActivityMainBinding;
-import com.app.bookstylist.shop.Rates;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,6 +48,7 @@ public class FeedbackActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private Toolbar toolbar;
     private Uri imageUri = null;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +79,14 @@ public class FeedbackActivity extends AppCompatActivity {
                 .placeholder(R.drawable.profile)
                 .into(binding.imgShop);
         getNameUser();
+        progressDialog = new ProgressDialog(this);
         binding.btnRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               validate(shopId, key, cmt, rate, bookId);
+                validate(shopId, key, cmt, rate, bookId);
+                progressDialog.setMessage("Chờ giây lát");
+                progressDialog.show();
+
             }
         });
         binding.feedbackImg.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +158,7 @@ public class FeedbackActivity extends AppCompatActivity {
             public void onSuccess(Void unused) {
                 Intent intent = new Intent(FeedbackActivity.this,Schedule.class);
                 intent.putExtra("success", true);
+                progressDialog.dismiss();
                 finish();
             }
 
@@ -271,7 +269,7 @@ public class FeedbackActivity extends AppCompatActivity {
     private void uploadImage(int idShop, String key, int cmt, float rate, String bookId ) {
 
         //Lay anh moi thay anh cu~
-        String filePath = "ProfileImages/rateImg"+key;
+        String filePath = "Rating/rateImg"+key;
 
         StorageReference reference = FirebaseStorage.getInstance().getReference(filePath);
         reference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
