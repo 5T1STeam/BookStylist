@@ -25,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Schedule extends AppCompatActivity {
     private ActivityScheduleBinding binding;
@@ -74,6 +76,7 @@ public class Schedule extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     BookModal bookModal = dataSnapshot.getValue(BookModal.class);
                     bookModalArrayList.add(bookModal);
+                    Collections.reverse(bookModalArrayList);
                 }
                 for (BookModal item: bookModalArrayList) {
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Shop/"+item.getSid());
