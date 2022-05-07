@@ -49,13 +49,14 @@ public class SearchActivity extends AppCompatActivity {
         searchView  = findViewById(R.id.search_view);
         Intent intent = getIntent();
 
-        getListShops(serviceParent);
-        searchShop.setAdapter(shopAdapter);
+
 
         if(intent.getStringExtra("Service Parent")==null){
             //show bàn phím
             searchView.onActionViewExpanded();
             serParent.setVisibility(View.GONE);
+            getListShops(serviceParent);
+            searchShop.setAdapter(shopAdapter);
 
         }else{
             //không show bàn phím click vào danh mục
@@ -63,6 +64,8 @@ public class SearchActivity extends AppCompatActivity {
             serviceShop = new ArrayList<>();
             serParent.setText("Dịch vụ: "+serviceParent);
             serParent.setVisibility(View.VISIBLE);
+            getListShops(serviceParent);
+            searchShop.setAdapter(shopAdapter);
         }
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
