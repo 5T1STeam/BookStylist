@@ -1,6 +1,7 @@
 package com.app.bookstylist;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.app.bookstylist.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
     private ProgressDialog progressDialog;
+
+    private MaterialAlertDialogBuilder war;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,12 +98,24 @@ public class LoginActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                progressDialog.setMessage("Thông tin đăng nhập không chính xác");
-                progressDialog.show();
+                Cancel();
+                war = new MaterialAlertDialogBuilder(LoginActivity.this,R.style.MaterialAlertDialog_Theme);
+                war.setTitle("Cảnh báo");
+                war.setMessage("Thông tin đăng nhập không chính xác");
+                war.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        binding.inputPassword.setText("");
+                    }
+                });
+                war.show();
             }
         });
     }
-
+    private Runnable Cancel(){
+        progressDialog.dismiss();
+        return null;
+    }
     private void checkUser() {
         progressDialog.setMessage("Checking user...");
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
