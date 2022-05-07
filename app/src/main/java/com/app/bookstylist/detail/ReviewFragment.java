@@ -90,8 +90,9 @@ public class ReviewFragment extends Fragment {
                     ratingBar.setRating(5);
                 }
                 else {
+                    ave = (float) (Math.round(ave*10)/10.0);
                     ratingNum.setText(String.valueOf( ave));
-                    ratingBar.setRating((float) ave);
+                    ratingBar.setRating(ave);
                 }
                 for (int i = 0; i<5;i++ ){
                     pb[i] = (pb[i]/quantity)*100;
