@@ -65,8 +65,9 @@ public class ShopActivity extends AppCompatActivity {
 
         String a = get.getStringExtra("name");
         String shopId = get.getStringExtra("id");
-        String rateNum = get.getStringExtra("rate");
+        float rateNum = Float.parseFloat((get.getStringExtra("rate")));
         String rateCount = get.getStringExtra("comment");
+        String rateValue = String.valueOf((float) (Math.round(rateNum*10)/10.0));
 
         Intent intent = new Intent(ShopActivity.this,BookActivity.class);
         intent.putExtra("id", shopId);
@@ -80,7 +81,7 @@ public class ShopActivity extends AppCompatActivity {
         binding.shopName.setText(a);
         binding.shopAddress.setText(get.getStringExtra("address"));
 
-        binding.rateNum.setText(rateNum);
+        binding.rateNum.setText(rateValue);
         binding.rateCount.setText(rateCount + " đánh giá");
         //toolbar
         toolbar =  findViewById(R.id.toolbarRl);
