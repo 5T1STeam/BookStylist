@@ -62,6 +62,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
                 intent.putExtra("address", shopModal.getAddress());
                 intent.putExtra("id",String.valueOf(shopModal.getId()));
                 intent.putExtra("img",shopModal.getImage());
+                intent.putExtra("rate", shopModal.getRating());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }

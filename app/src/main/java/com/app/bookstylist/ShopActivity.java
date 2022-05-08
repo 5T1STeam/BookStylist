@@ -65,7 +65,7 @@ public class ShopActivity extends AppCompatActivity {
 
         String a = get.getStringExtra("name");
         String shopId = get.getStringExtra("id");
-        float rateNum = Float.parseFloat((get.getStringExtra("rate")));
+        float rateNum = get.getFloatExtra("rate", 0.0f);
         String rateCount = get.getStringExtra("comment");
         String rateValue = String.valueOf((float) (Math.round(rateNum*10)/10.0));
 
